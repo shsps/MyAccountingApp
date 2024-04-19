@@ -3,15 +3,23 @@ import { RouterOutlet } from '@angular/router';
 
 @Component(
   {
-    selector: 'app-root',
-    standalone: true,
-    imports: [RouterOutlet],
+    selector: 'app-root', 
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
   }
 )
 export class AppComponent implements OnInit, AfterViewInit
 {
+  PayList =
+  [
+    {
+      date: '2024/4/19',
+      icon: 'tmp',
+      name: 'lunch',
+      money: 100,
+      remark: ''
+    }
+  ]
   @ViewChild('div1') div1!:ElementRef;
   
   ngAfterViewInit(): void 

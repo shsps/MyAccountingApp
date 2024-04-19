@@ -1,0 +1,65 @@
+#Div1
+{
+    display: flex;
+    height: 20%;
+}
+
+#Div1_1
+{
+    display: flex; 
+    width: 25%; 
+    border: solid; 
+    align-content: center;
+    justify-content: center;
+}
+
+#Div1_1_1
+{
+    width: 20%;
+    // border: 1px solid #ff0000;
+    align-content: center;
+}
+
+#Div1_1_1>img
+{
+    width: 100%;
+}
+
+#Div1_1_2
+{
+    width: 50%;
+    // border: 1px solid #ff0000;
+    align-content: center;
+}
+
+#Div1_1_2>p
+{
+    font-size:30px;
+    overflow:visible;
+    overflow-wrap: break-word;
+}
+
+#Div1_2
+{
+    width: 75%; 
+    border: solid; 
+    align-content: center;
+}
+
+#Div2
+{
+    display: flex;
+    height: 80%;
+}
+
+#Div2_1
+{
+    width: 25%; 
+    border: solid;
+}
+
+#Div2_2
+{
+    width: 75%; 
+    border: solid;
+}

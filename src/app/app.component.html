@@ -1,19 +1,27 @@
-<div style="display: flex; height: 20%;">
-  <div #div1 class="Icon" style="width: 20%; border: solid;">
-    <p>Text1</p>
-    <!-- <img src="../assets/R.png" style="height: 80px; transform: scaleX(-1);" (click)="BeClick($event)"> -->
+<div id="Div1">
+  <div id="Div1_1">
+    <div id="Div1_1_1">
+      <img src="../assets/R.png">
+    </div>
+    <div id="Div1_1_2">
+      <p>MyAccountingApp</p>
+    </div>
   </div>
-  <div #div2 class="Icon2" style="width: 80%; border: solid;">
+  <div id="Div1_2">
     <p>Text1</p>
-    <!-- <img src="../assets/PiggyBanks.jpg" style="height: 100%;"> -->
   </div>
 </div>
 
-<div style="display: flex; height: 80%;">
-  <div style="width: 50%; border: solid;">
+<div id="Div2">
+  <div id="Div2_1">
     <p>Text3</p>
   </div>
-  <div style="width: 50%; border: solid;">
-    <p>Text4</p>
+  <div id="Div2_2">
+    <ul>
+      <li *ngFor="let item of PayList; index as i">
+        <i class="fa-solid fa-right-to-bracket"></i>
+        <p>{{item.name}}</p>
+      </li>
+    </ul>
   </div>
 </div>
