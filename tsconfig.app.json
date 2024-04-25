@@ -3,9 +3,9 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": ["jquery", 
-    "bootstrap-datepicker",
-    "jqueryui"]
+    "types": [
+      "jquery"
+    ]
   },
   "files": [
     "src/main.ts"

@@ -1,5 +1,8 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Expenses } from './@models/Expenses.model';
+import { HttpClient } from '@angular/common/http';
+import { DatabaseResponse } from './@models/DatabaseResponse.model';
 
 @Component(
   {
@@ -10,57 +13,36 @@ import { RouterOutlet } from '@angular/router';
 )
 export class AppComponent implements OnInit, AfterViewInit
 {
-  PayList =
-  [
-    {
-      id: '1',
-      date: '2024/4/19',
-      // icon: 'fa-solid fa-pizza-slice',
-      icon: '♨︎',
-      name: '雞腿便當',
-      money: 100,
-      remark: '備註1'
-    },
-    {
-      id: '2',
-      date: '2024/4/20',
-      // icon: 'fa-solid fa-pizza-slice',
-      icon: '♨︎',
-      name: '豬排便當豬排便當',
-      money: 90,
-      remark: '備註2'
-    },
-    {
-      id: '3',
-      date: '2024/4/19',
-      // icon: 'fa-solid fa-pizza-slice',
-      icon: '♨︎',
-      name: '燒肉便當',
-      money: 120,
-      remark: '備註3'
-    },
-  ]
-  @ViewChild('div1') div1!:ElementRef;
+  constructor(private http:HttpClient) {}
+
+  ExpensesList:Expenses[] = [];
   
   ngAfterViewInit(): void 
   {
-    let option:DatepickerOptions =
-    {
-      format: 'mm/dd',
-      container: 'div#Div2_1',
-      showOnFocus: true
-    }
-    $('#Div1_2 button').on('click', ()=>
-    {
-      console.log($('.datepicker'));
-    });
-    $('.aaa').datepicker(option);
-    
-    console.log(option);
   }
+
   ngOnInit(): void 
   {
-    
+    this.http.get<DatabaseResponse>('/api/expenses').subscribe(data=>
+    {
+      this.ExpensesList = data.result as Expenses[];
+    });
   }
+  
   title = 'MyAccountingApp';
+
+  AddExpense_Enter(event:MouseEvent)
+  {
+    $(event.currentTarget as EventTarget).attr('src', './assets/AddExpense_Press.png');
+  }
+
+  AddExpense_Leave(event:MouseEvent)
+  {
+    $(event.currentTarget as EventTarget).attr('src', './assets/AddExpense.png');
+  }
+
+  AddExpense_Click(event:MouseEvent)
+  {
+    alert("click");
+  }
 }

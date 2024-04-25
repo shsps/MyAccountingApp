@@ -19,13 +19,13 @@
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
     "@syncfusion/ej2-angular-calendars": "^25.1.40",
+    "@syncfusion/ej2-material-theme": "~25.1.40",
     "bootstrap-datepicker": "^1.10.0",
     "jquery": "^3.7.1",
     "jquery-ui": "^1.13.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.14.3",
-    "@syncfusion/ej2-material-theme": "~25.1.40"
+    "zone.js": "~0.14.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.3.3",

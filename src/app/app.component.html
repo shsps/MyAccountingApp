@@ -10,6 +10,7 @@
   <div id="Div1_2">
     <button>記帳</button>
     <button>統計</button>
+    <button>查詢</button>
   </div>
 </div>
 
@@ -22,15 +23,21 @@
   <div id="Div2_2">
     <div id="PayListUL">
       <ul>
-        <li *ngFor="let item of PayList;">
-          <span>{{item.date}}</span>
+        <li *ngFor="let item of ExpensesList;">
+          <span>{{item.date | date:'MM/dd'}}</span>
           <!-- <i [(class)]="item.icon"></i> -->
-          <span>{{item.icon}}</span>
+          <span>X</span>
           <span>{{item.name}}</span>
           <span>{{item.money}}</span>
           <span>{{item.remark}}</span>
         </li>
       </ul>
+      <div id="AddExpense">
+        <img src="../assets/AddExpense.png" 
+        (mouseenter)="AddExpense_Enter($event)"
+        (mouseleave)="AddExpense_Leave($event)"
+        (click)="AddExpense_Click($event)">
+      </div>
     </div>
     <div id="Total">
       <span></span>
