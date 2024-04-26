@@ -25,8 +25,8 @@
       <ul>
         <li *ngFor="let item of ExpensesList;">
           <span>{{item.date | date:'MM/dd'}}</span>
-          <!-- <i [(class)]="item.icon"></i> -->
-          <span>X</span>
+          <i [(class)]="item.icon"></i>
+          <!-- <span>X</span> -->
           <span>{{item.name}}</span>
           <span>{{item.money}}</span>
           <span>{{item.remark}}</span>
@@ -38,6 +38,7 @@
         (mouseleave)="AddExpense_Leave($event)"
         (click)="AddExpense_Click($event)">
       </div>
+      <app-add-expense-page *ngIf="IsShowExpensePage"></app-add-expense-page>
     </div>
     <div id="Total">
       <span></span>

@@ -1,16 +1,24 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Expenses } from './@models/Expenses.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DatabaseResponse } from './@models/DatabaseResponse.model';
+import { CommonModule } from '@angular/common';
+import { AddExpensePageComponent } from './add-expense-page/add-expense-page.component';
 
 @Component(
   {
-    selector: 'app-root', 
+    selector: 'app-root',
+    standalone: true,
+    imports: [RouterOutlet, 
+              CommonModule,  
+              HttpClientModule, 
+              AddExpensePageComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
   }
 )
+
 export class AppComponent implements OnInit, AfterViewInit
 {
   constructor(private http:HttpClient) {}
@@ -28,8 +36,9 @@ export class AppComponent implements OnInit, AfterViewInit
       this.ExpensesList = data.result as Expenses[];
     });
   }
-  
+
   title = 'MyAccountingApp';
+  IsShowExpensePage:boolean = false;
 
   AddExpense_Enter(event:MouseEvent)
   {
@@ -43,6 +52,6 @@ export class AppComponent implements OnInit, AfterViewInit
 
   AddExpense_Click(event:MouseEvent)
   {
-    alert("click");
+    this.IsShowExpensePage = !this.IsShowExpensePage;
   }
 }

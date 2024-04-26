@@ -97,7 +97,7 @@
 
 #PayListUL
 {
-    height: 80%;
+    height: 90%;
     overflow-y: auto;
 }
 
@@ -152,6 +152,8 @@
 {
     position: absolute;
     width: 80px;
+    right: 20px;
+    bottom: 10%;
 }
 
 #AddExpense img
@@ -159,9 +161,20 @@
     width: 100%;
 }
 
+app-add-expense-page
+{
+    position: absolute;
+    width: 600px;
+    height: 500px;
+    right: 10px;
+    bottom: 10px;
+    border: 2px solid black;
+    background-color: white;
+}
+
 #Total
 {
-    height: 20%;
+    height: 10%;
     display: flex;
     align-items: center;
     background-color: #ffcb3b;
