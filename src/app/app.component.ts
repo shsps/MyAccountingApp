@@ -16,6 +16,7 @@ export class AppComponent implements OnInit, AfterViewInit
   constructor(private http:HttpClient) {}
 
   ExpensesList:Expenses[] = [];
+  TotalPrice:number = 0;
   
   ngAfterViewInit(): void 
   {
@@ -26,6 +27,10 @@ export class AppComponent implements OnInit, AfterViewInit
     this.http.get<DatabaseResponse>('/api/expenses').subscribe(data=>
     {
       this.ExpensesList = data.result as Expenses[];
+      this.ExpensesList.forEach((value) =>
+      {
+        this.TotalPrice += value.money;
+      })
     });
   }
   
