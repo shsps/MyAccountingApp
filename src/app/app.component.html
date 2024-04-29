@@ -23,27 +23,26 @@
   <div id="Div2_2">
     <div id="PayListUL">
       <ul>
-        <li *ngFor="let item of ExpensesList;">
+        <li *ngFor="let item of databaseApi.ExpensesList;">
           <span>{{item.date | date:'MM/dd'}}</span>
           <i [(class)]="item.icon"></i>
-          <!-- <span>X</span> -->
           <span>{{item.name}}</span>
           <span>{{item.money}}</span>
           <span>{{item.remark}}</span>
         </li>
       </ul>
+      <app-add-expense-page *ngIf="IsShowExpensePage"></app-add-expense-page>
       <div id="AddExpense">
         <img src="../assets/AddExpense.png" 
         (mouseenter)="AddExpense_Enter($event)"
         (mouseleave)="AddExpense_Leave($event)"
         (click)="AddExpense_Click($event)">
       </div>
-      <app-add-expense-page *ngIf="IsShowExpensePage"></app-add-expense-page>
     </div>
     <div id="Total">
       <span></span>
       <span>總額：</span>
-      <span>{{TotalPrice}}</span>
+      <span>{{databaseApi.TotalPrice}}</span>
     </div>
   </div>
 </div>

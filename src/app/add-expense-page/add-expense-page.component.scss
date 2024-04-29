@@ -1,4 +1,93 @@
 #Layout
 {
     display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-areas: "date price price" "icon name name" "mark mark mark";
+    grid-template-columns: 20% 40% 40%;
+    grid-template-rows: 25% 25% 50%;
+}
+
+// #Layout>*
+// {
+//     background-color: black;
+// }
+
+#date
+{
+    grid-area: date;
+    background-color: red;
+}
+
+#icon
+{
+    grid-area: icon;
+    background-color: yellow;
+}
+
+#icon>button
+{
+    width: 100%;
+    height: 100%;
+    font-size: 50px;
+    text-align: center;
+}
+
+#name
+{
+    grid-area: name;
+    background-color: green;
+}
+
+#name>input
+{
+    width: 100%;
+    height: 100%;
+    font-size: 40px;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    border: 1px solid black;
+}
+
+#price
+{
+    grid-area: price;
+    background-color: blue;
+}
+
+#price>input
+{
+    width: 100%;
+    height: 100%;
+    font-size: 40px;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    border: 1px solid black;
+}
+
+#mark
+{
+    grid-area: mark;
+    background-color: purple;
+}
+
+// #mark>input
+// {
+//     width: 100%;
+//     height: 100%;
+//     font-size: 40px;
+// }
+
+#mark>textarea
+{
+    width: 100%;
+    height: 100%;
+    font-size: 40px;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    border: 1px solid black;
+    resize: none;
 }

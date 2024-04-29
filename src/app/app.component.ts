@@ -5,14 +5,14 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DatabaseResponse } from './@models/DatabaseResponse.model';
 import { CommonModule } from '@angular/common';
 import { AddExpensePageComponent } from './add-expense-page/add-expense-page.component';
+import { DatabaseApiService } from './@services/database-api.service';
 
 @Component(
   {
     selector: 'app-root',
     standalone: true,
     imports: [RouterOutlet, 
-              CommonModule,  
-              HttpClientModule, 
+              CommonModule, 
               AddExpensePageComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
@@ -21,10 +21,13 @@ import { AddExpensePageComponent } from './add-expense-page/add-expense-page.com
 
 export class AppComponent implements OnInit, AfterViewInit
 {
-  constructor(private http:HttpClient) {}
+  title = 'MyAccountingApp';
+  IsShowExpensePage:boolean = false;
 
-  ExpensesList:Expenses[] = [];
-  TotalPrice:number = 0;
+  constructor(public databaseApi:DatabaseApiService) {}
+
+  // ExpensesList:Expenses[] = [];
+  // TotalPrice:number = 0;
   
   ngAfterViewInit(): void 
   {
@@ -32,18 +35,16 @@ export class AppComponent implements OnInit, AfterViewInit
 
   ngOnInit(): void 
   {
-    this.http.get<DatabaseResponse>('/api/expenses').subscribe(data=>
-    {
-      this.ExpensesList = data.result as Expenses[];
-      this.ExpensesList.forEach((value) =>
-      {
-        this.TotalPrice += value.money;
-      })
-    });
+    // this.databaseApi.GetExpenses();
+    // this.http.get<DatabaseResponse>('/api/expenses').subscribe(data=>
+    // {
+    //   this.ExpensesList = data.result as Expenses[];
+    //   this.ExpensesList.forEach((value) =>
+    //   {
+    //     this.TotalPrice += value.money;
+    //   });
+    // });
   }
-
-  title = 'MyAccountingApp';
-  IsShowExpensePage:boolean = false;
 
   AddExpense_Enter(event:MouseEvent)
   {
