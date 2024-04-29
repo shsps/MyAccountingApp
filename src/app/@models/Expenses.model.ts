@@ -4,6 +4,6 @@ export interface Expenses
     date: string,
     icon: string,
     name: string,
-    money: Number,
+    money: number,
     remark: string
 }
