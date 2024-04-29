@@ -19,6 +19,16 @@
     background-color: red;
 }
 
+#date>span
+{
+    display: block;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    font-size: 50px;
+    line-height: 250%;
+}
+
 #icon
 {
     grid-area: icon;
