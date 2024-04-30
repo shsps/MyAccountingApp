@@ -79,11 +79,13 @@ export class AppComponent implements OnInit, AfterViewInit
       remark: input3.val() as string
 
     }
-    console.log(date1.text());
-    console.log(date2.text());
-    console.log(input2.val());
-    console.log(input1.val());
-    console.log(input3.val());
-    console.log(icon.attr('class'));
+
+    this.databaseApi.AddExpenses(expense);
+    // console.log(date1.text());
+    // console.log(date2.text());
+    // console.log(input2.val());
+    // console.log(input1.val());
+    // console.log(input3.val());
+    // console.log(icon.attr('class'));
   }
 }
