@@ -1,8 +1,12 @@
 <div id="Layout">
     <div id="date">
-        <span>
-            {{dateToday | date:'MM/dd'}}
+        <span id="year">
+            {{dateToday | date:'yyyy'}}
         </span>
+        <span id="month" (click)="dateClick(datePicker)">
+            {{dateToday | date:'MM-dd'}}
+        </span>
+        <input #datePicker type="date">
     </div>
     <div id="icon">
         <button>
@@ -15,7 +19,7 @@
     <div id="price">
         <input type="text" placeholder="價格">
     </div>
-    <div id="mark">
+    <div id="remark">
         <!-- <input type="text"> -->
         <textarea placeholder="備註"></textarea>
     </div>

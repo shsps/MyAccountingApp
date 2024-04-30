@@ -3,7 +3,7 @@
     display: grid;
     height: 100%;
     width: 100%;
-    grid-template-areas: "date price price" "icon name name" "mark mark mark";
+    grid-template-areas: "date price price" "icon name name" "remark remark remark";
     grid-template-columns: 20% 40% 40%;
     grid-template-rows: 25% 25% 50%;
 }
@@ -16,17 +16,34 @@
 #date
 {
     grid-area: date;
-    background-color: red;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
 }
 
-#date>span
+#date>span:nth-child(1)
 {
-    display: block;
-    width: 100%;
     height: auto;
     text-align: center;
+    font-size: 20px;
+}
+
+#date>span:nth-child(2)
+{
+    text-align: center;
     font-size: 50px;
-    line-height: 250%;
+}
+
+#date>input
+{
+    position: absolute;
+    height: 0;
+    width: 0;
+    top: 0;
+    left: 0;
+    border: 0;
+    padding: 0;
 }
 
 #icon
@@ -77,20 +94,20 @@
     border: 1px solid black;
 }
 
-#mark
+#remark
 {
-    grid-area: mark;
+    grid-area: remark;
     background-color: purple;
 }
 
-// #mark>input
+// #remark>input
 // {
 //     width: 100%;
 //     height: 100%;
 //     font-size: 40px;
 // }
 
-#mark>textarea
+#remark>textarea
 {
     width: 100%;
     height: 100%;

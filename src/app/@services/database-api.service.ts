@@ -28,4 +28,9 @@ export class DatabaseApiService
       });
     })
   }
+
+  AddExpenses(expense:Expenses)
+  {
+    this.http.post('/api/expenses', expense).subscribe();
+  }
 }

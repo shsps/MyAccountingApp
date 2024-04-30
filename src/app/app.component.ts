@@ -59,5 +59,31 @@ export class AppComponent implements OnInit, AfterViewInit
   AddExpense_Click(event:MouseEvent)
   {
     this.IsShowExpensePage = !this.IsShowExpensePage;
+
+    if(this.IsShowExpensePage) return;
+
+    let date1:JQuery<HTMLElement> = $("app-add-expense-page>#Layout>#date>#year");
+    let date2:JQuery<HTMLElement> = $("app-add-expense-page>#Layout>#date>#month");
+    let input1:JQuery<HTMLElement> = $("app-add-expense-page>#Layout>#name>input");
+    let input2:JQuery<HTMLElement> = $("app-add-expense-page>#Layout>#price>input");
+    let input3:JQuery<HTMLElement> = $("app-add-expense-page>#Layout>#remark>textarea");
+    let icon:JQuery<HTMLElement> = $("app-add-expense-page>#Layout>#icon>button>i");
+
+    let expense:Expenses = 
+    {
+      id:"",
+      date: (date1.text()+"-"+date2.text()),
+      icon: icon.attr('class') as string,
+      name: input2.val() as string,
+      money: input2.val() as number,
+      remark: input3.val() as string
+
+    }
+    console.log(date1.text());
+    console.log(date2.text());
+    console.log(input2.val());
+    console.log(input1.val());
+    console.log(input3.val());
+    console.log(icon.attr('class'));
   }
 }
