@@ -72,20 +72,19 @@ export class AppComponent implements OnInit, AfterViewInit
     let expense:Expenses = 
     {
       id:"",
-      date: (date1.text()+"-"+date2.text()),
+      date: `${date1.text().trim()}-${date2.text().trim()}`,
       icon: icon.attr('class') as string,
-      name: input2.val() as string,
+      name: input1.val() as string,
       money: input2.val() as number,
       remark: input3.val() as string
 
     }
-
+    // console.log(expense);
     this.databaseApi.AddExpenses(expense);
-    // console.log(date1.text());
-    // console.log(date2.text());
-    // console.log(input2.val());
-    // console.log(input1.val());
-    // console.log(input3.val());
-    // console.log(icon.attr('class'));
+  }
+
+  CloseAddExpense(value:boolean)
+  {
+    this.IsShowExpensePage = false;
   }
 }

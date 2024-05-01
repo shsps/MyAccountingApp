@@ -31,13 +31,13 @@
           <span>{{item.remark}}</span>
         </li>
       </ul>
-      <app-add-expense-page *ngIf="IsShowExpensePage"></app-add-expense-page>
-      <div id="AddExpense">
+      <app-add-expense-page></app-add-expense-page>
+      <!-- <div id="AddExpense">
         <img src="../assets/AddExpense.png" 
         (mouseenter)="AddExpense_Enter($event)"
         (mouseleave)="AddExpense_Leave($event)"
         (click)="AddExpense_Click($event)">
-      </div>
+      </div> -->
     </div>
     <div id="Total">
       <span></span>

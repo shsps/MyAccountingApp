@@ -1,26 +1,37 @@
-<div id="Layout">
-    <div id="date">
-        <span id="year">
-            {{dateToday | date:'yyyy'}}
-        </span>
-        <span id="month" (click)="dateClick(datePicker)">
-            {{dateToday | date:'MM-dd'}}
-        </span>
-        <input #datePicker type="date">
+<div id="RootLayout">
+    <div id="Cancle" *ngIf="IsShowExpensePage">
+        <button (click)="ClosePage()">X</button>
     </div>
-    <div id="icon">
-        <button>
-            <i class="fa-solid fa-pizza-slice"></i>
-        </button>
+    <div id="Layout" *ngIf="IsShowExpensePage">
+        <div id="date">
+            <span id="year">
+                {{dateToday | date:'yyyy'}}
+            </span>
+            <span id="month" (click)="DateClick(datePicker)">
+                {{dateToday | date:'MM-dd'}}
+            </span>
+            <input #datePicker type="date">
+        </div>
+        <div id="icon">
+            <button>
+                <i class="fa-solid fa-pizza-slice"></i>
+            </button>
+        </div>
+        <div id="name">
+            <input type="text" placeholder="品項名稱" (click)="InputClick($event)">
+        </div>
+        <div id="price">
+            <input type="text" placeholder="價格" (click)="InputClick($event)">
+        </div>
+        <div id="remark">
+            <textarea placeholder="備註"></textarea>
+        </div>
     </div>
-    <div id="name">
-        <input type="text" placeholder="品項名稱">
-    </div>
-    <div id="price">
-        <input type="text" placeholder="價格">
-    </div>
-    <div id="remark">
-        <!-- <input type="text"> -->
-        <textarea placeholder="備註"></textarea>
+    <div id="AddExpense">
+        <img src="../assets/AddExpense.png" 
+        (mouseenter)="AddExpense_Enter($event)"
+        (mouseleave)="AddExpense_Leave($event)"
+        (click)="AddExpense_Click($event)">
     </div>
 </div>
+
