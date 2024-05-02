@@ -16,6 +16,34 @@ export class AddExpensePageComponent implements OnInit
   dateToday:Date|undefined;
   IsShowExpensePage:boolean = false;
   
+  IconList:string[] = [
+    'fa-solid fa-pizza-slice',
+    'fa-solid fa-mug-hot',
+    'fa-solid fa-fish',
+    'fa-solid fa-shirt',
+    'fa-solid fa-bag-shopping',
+    'fa-solid fa-car-side',
+    'fa-solid fa-pencil',
+    'fa-solid fa-store',
+    'fa-solid fa-wallet',
+    'fa-brands fa-cc-visa',
+    'fa-solid fa-hammer',
+    'fa-brands fa-google-play',
+    'fa-solid fa-hospital',
+    'fa-solid fa-coins',
+    'fa-solid fa-otter',
+    'fa-solid fa-umbrella-beach',
+    'fa-solid fa-volleyball',
+    'fa-solid fa-tooth',
+    'fa-solid fa-taxi',
+    'fa-solid fa-piggy-bank',
+    'fa-solid fa-mobile-screen-button',
+    'fa-solid fa-ice-cream',
+    'fa-solid fa-couch',
+    'fa-solid fa-cookie',
+    'fa-solid fa-computer'
+  ];
+  IsSelectingIcon:boolean = false;
 
   constructor(private databaseApi:DatabaseApiService) {}
 
@@ -77,6 +105,7 @@ export class AddExpensePageComponent implements OnInit
     }
 
     this.databaseApi.AddExpenses(expense);
+    this.IsShowExpensePage = false;
   }
 
   ClosePage()
@@ -87,8 +116,11 @@ export class AddExpensePageComponent implements OnInit
   InputClick(event:MouseEvent)
   {
     let target:HTMLInputElement = event.target as HTMLInputElement;
-    target.style.color = 'black';
-    target.value = '';
+    if(target.style.color != 'black')
+    {
+      target.style.color = 'black';
+      target.value = '';
+    }
   }
 
   ExpenseInputEmptyCheck():boolean
@@ -119,5 +151,42 @@ export class AddExpensePageComponent implements OnInit
     }
 
     return false;
+  }
+
+  IconButtonClick()
+  {
+    this.IsSelectingIcon = true;
+  }
+
+  IconMouseEnter(event:MouseEvent)
+  {
+    let target:HTMLElement = event.target as HTMLElement;
+    target.style.backgroundColor = 'gray'
+  }
+
+  IconMouseLeave(event:MouseEvent)
+  {
+    let target:HTMLElement = event.target as HTMLElement;
+    target.style.backgroundColor = 'white'
+  }
+
+  IconSelect(event:MouseEvent)
+  {
+    let target:HTMLElement = event.target as HTMLElement;
+    let iconName:string = 'None';
+
+    if(target.tagName == 'DIV')
+    {
+      let child:HTMLElement = target.firstChild as HTMLElement;
+      iconName = child.getAttribute('class') as string;
+    }
+    else if(target.tagName == 'I')
+    {
+      iconName = target.getAttribute('class') as string;
+    }
+    
+    console.log(iconName);
+    $('#icon>button>i').attr('class', iconName);
+    this.IsSelectingIcon = false;
   }
 }

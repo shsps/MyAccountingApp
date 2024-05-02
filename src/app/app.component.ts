@@ -26,65 +26,36 @@ export class AppComponent implements OnInit, AfterViewInit
 
   constructor(public databaseApi:DatabaseApiService) {}
 
-  // ExpensesList:Expenses[] = [];
-  // TotalPrice:number = 0;
+  @ViewChild('dateFrom') dateFrom!:ElementRef<HTMLInputElement>;
+  DateFromMax!:string;
+  @ViewChild('dateTo') dateTo!:ElementRef<HTMLInputElement>;
+  DateToMin!:string;
   
   ngAfterViewInit(): void 
   {
-  }
+    let today = new Date();
+    today.setMonth(today.getMonth(), 1);
+    this.dateFrom.nativeElement.valueAsDate = today;
+    // this.dateFrom.nativeElement.addEventListener('change', () => this.SetDateMinAndMax());
 
+    today.setMonth(today.getMonth() + 1, 0);
+    this.dateTo.nativeElement.valueAsDate = today;
+    // this.dateTo.nativeElement.addEventListener('change', () => this.SetDateMinAndMax);
+
+    setTimeout(()=>
+    {
+      this.SetDateMinAndMax();
+    }, 500);
+  }
+  
   ngOnInit(): void 
   {
-    // this.databaseApi.GetExpenses();
-    // this.http.get<DatabaseResponse>('/api/expenses').subscribe(data=>
-    // {
-    //   this.ExpensesList = data.result as Expenses[];
-    //   this.ExpensesList.forEach((value) =>
-    //   {
-    //     this.TotalPrice += value.money;
-    //   });
-    // });
   }
 
-  AddExpense_Enter(event:MouseEvent)
+  SetDateMinAndMax()
   {
-    $(event.currentTarget as EventTarget).attr('src', './assets/AddExpense_Press.png');
-  }
-
-  AddExpense_Leave(event:MouseEvent)
-  {
-    $(event.currentTarget as EventTarget).attr('src', './assets/AddExpense.png');
-  }
-
-  AddExpense_Click(event:MouseEvent)
-  {
-    this.IsShowExpensePage = !this.IsShowExpensePage;
-
-    if(this.IsShowExpensePage) return;
-
-    let date1:JQuery<HTMLElement> = $("app-add-expense-page>#Layout>#date>#year");
-    let date2:JQuery<HTMLElement> = $("app-add-expense-page>#Layout>#date>#month");
-    let input1:JQuery<HTMLElement> = $("app-add-expense-page>#Layout>#name>input");
-    let input2:JQuery<HTMLElement> = $("app-add-expense-page>#Layout>#price>input");
-    let input3:JQuery<HTMLElement> = $("app-add-expense-page>#Layout>#remark>textarea");
-    let icon:JQuery<HTMLElement> = $("app-add-expense-page>#Layout>#icon>button>i");
-
-    let expense:Expenses = 
-    {
-      id:"",
-      date: `${date1.text().trim()}-${date2.text().trim()}`,
-      icon: icon.attr('class') as string,
-      name: input1.val() as string,
-      money: input2.val() as number,
-      remark: input3.val() as string
-
-    }
-    // console.log(expense);
-    this.databaseApi.AddExpenses(expense);
-  }
-
-  CloseAddExpense(value:boolean)
-  {
-    this.IsShowExpensePage = false;
+    console.log(this.dateFrom.nativeElement.value + '~' + this.dateTo.nativeElement.value);
+    this.DateFromMax = this.dateTo.nativeElement.value as string;
+    this.DateToMin = this.dateFrom.nativeElement.value as string;
   }
 }

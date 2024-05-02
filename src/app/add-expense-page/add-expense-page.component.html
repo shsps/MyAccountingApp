@@ -13,9 +13,10 @@
             <input #datePicker type="date">
         </div>
         <div id="icon">
-            <button>
+            <button (click)="IconButtonClick()">
                 <i class="fa-solid fa-pizza-slice"></i>
             </button>
+            
         </div>
         <div id="name">
             <input type="text" placeholder="品項名稱" (click)="InputClick($event)">
@@ -25,6 +26,15 @@
         </div>
         <div id="remark">
             <textarea placeholder="備註"></textarea>
+        </div>
+    </div>
+    <div id="iconMenu" *ngIf="IsSelectingIcon">
+        <div *ngFor="let item of IconList" 
+        (mouseenter)="IconMouseEnter($event)" 
+        (mouseleave)="IconMouseLeave($event)" 
+        (click)="IconSelect($event)">
+            <i class="{{item}}"></i>
+            <!-- <i>X</i> -->
         </div>
     </div>
     <div id="AddExpense">

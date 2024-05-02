@@ -16,9 +16,9 @@
 
 <div id="Div2">
   <div id="Div2_1">
-    <input type="date">
+    <input #dateFrom type="date" [max]="DateFromMax" (change)="SetDateMinAndMax()">
     <span>~</span>
-    <input type="date">
+    <input #dateTo type="date" [min]="DateToMin" (change)="SetDateMinAndMax()">
   </div>
   <div id="Div2_2">
     <div id="PayListUL">
@@ -32,12 +32,6 @@
         </li>
       </ul>
       <app-add-expense-page></app-add-expense-page>
-      <!-- <div id="AddExpense">
-        <img src="../assets/AddExpense.png" 
-        (mouseenter)="AddExpense_Enter($event)"
-        (mouseleave)="AddExpense_Leave($event)"
-        (click)="AddExpense_Click($event)">
-      </div> -->
     </div>
     <div id="Total">
       <span></span>

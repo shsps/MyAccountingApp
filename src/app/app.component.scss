@@ -78,6 +78,8 @@
 {
     margin-left: 33%;
     font-size: 50px;
+    display: inline-block;
+    transform: rotate(90deg);
 }
 
 #Div2_1>input:nth-child(3)
@@ -116,6 +118,7 @@
 #PayListUL>ul>li>*
 {
     text-align: center;
+    align-content: center;
 }
 
 #PayListUL>ul>li>*:nth-child(1)
@@ -147,28 +150,6 @@
 {
     background-color: #fffd9d;
 }
-
-// #AddExpense
-// {
-//     position: absolute;
-//     width: 80px;
-//     right: 20px;
-//     bottom: 10%;
-// }
-
-// #AddExpense img
-// {
-//     width: 100%;
-// }
-
-// app-add-expense-page
-// {
-//     position: absolute;
-//     width: 600px;
-//     height: 500px;
-//     right: 100px;
-//     bottom: 8%;
-// }
 
 #Total
 {
