@@ -36,11 +36,9 @@ export class AppComponent implements OnInit, AfterViewInit
     let today = new Date();
     today.setMonth(today.getMonth(), 1);
     this.dateFrom.nativeElement.valueAsDate = today;
-    // this.dateFrom.nativeElement.addEventListener('change', () => this.SetDateMinAndMax());
 
     today.setMonth(today.getMonth() + 1, 0);
     this.dateTo.nativeElement.valueAsDate = today;
-    // this.dateTo.nativeElement.addEventListener('change', () => this.SetDateMinAndMax);
 
     setTimeout(()=>
     {
@@ -54,8 +52,9 @@ export class AppComponent implements OnInit, AfterViewInit
 
   SetDateMinAndMax()
   {
-    console.log(this.dateFrom.nativeElement.value + '~' + this.dateTo.nativeElement.value);
     this.DateFromMax = this.dateTo.nativeElement.value as string;
     this.DateToMin = this.dateFrom.nativeElement.value as string;
+
+    this.databaseApi.GetExpenses(this.dateFrom.nativeElement.value, this.dateTo.nativeElement.value);
   }
 }

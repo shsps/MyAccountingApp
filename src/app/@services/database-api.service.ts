@@ -17,11 +17,18 @@ export class DatabaseApiService
     this.GetExpenses();
   }
 
-  GetExpenses(): void
+  GetExpenses(from?:string, to?:string): void
   {
-    this.http.get<DatabaseResponse>('/api/expenses').subscribe(data=>
+    let url = '/api/expenses/'
+    if(from != undefined && to != undefined)
+    {
+      url += `${from}/${to}`;
+    }
+
+    this.http.get<DatabaseResponse>(url).subscribe(data=>
     {
       this.ExpensesList = data.result as Expenses[];
+      this.TotalPrice = 0;
       this.ExpensesList.forEach((value) =>
       {
         this.TotalPrice += value.money;
@@ -32,5 +39,19 @@ export class DatabaseApiService
   AddExpenses(expense:Expenses)
   {
     this.http.post('/api/expenses', expense).subscribe();
+    this.ExpensesList.push(expense);
+    this.ExpensesList.sort((a, b) =>
+    {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+
+      if (dateA < dateB) {
+          return -1;
+      } else if (dateA > dateB) {
+          return 1;
+      } else {
+          return 0;
+      }
+    });
   }
 }
