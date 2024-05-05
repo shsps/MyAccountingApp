@@ -39,19 +39,30 @@ export class DatabaseApiService
   AddExpenses(expense:Expenses)
   {
     this.http.post('/api/expenses', expense).subscribe();
-    this.ExpensesList.push(expense);
-    this.ExpensesList.sort((a, b) =>
+    
+    let dateNow = new Date(expense.date);
+    let dateFrom = new Date($('#Div2_1>input:nth-child(1)').val() as string);
+    let dateTo = new Date($('#Div2_1>input:nth-child(3)').val() as string);
+    
+    
+    if(dateNow >= dateFrom && dateNow <= dateTo)
     {
-      const dateA = new Date(a.date);
-      const dateB = new Date(b.date);
+      this.TotalPrice += expense.money;
+      this.ExpensesList.push(expense);
+      this.ExpensesList.sort((a, b) =>
+      {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
 
-      if (dateA < dateB) {
-          return -1;
-      } else if (dateA > dateB) {
-          return 1;
-      } else {
-          return 0;
-      }
-    });
+        if (dateA < dateB) {
+            return -1;
+        } else if (dateA > dateB) {
+            return 1;
+        } else {
+            return 0;
+        }
+      });
+    }
+    
   }
 }

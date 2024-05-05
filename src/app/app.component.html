@@ -23,12 +23,13 @@
   <div id="Div2_2">
     <div id="PayListUL">
       <ul>
-        <li *ngFor="let item of databaseApi.ExpensesList;">
+        <li (click)="EditExpenseClick($event)" *ngFor="let item of databaseApi.ExpensesList;">
           <span>{{item.date | date:'MM/dd'}}</span>
           <i [(class)]="item.icon"></i>
           <span>{{item.name}}</span>
           <span>{{item.money}}</span>
           <span>{{item.remark}}</span>
+          <span>{{item.id}}</span>
         </li>
       </ul>
       <app-add-expense-page></app-add-expense-page>

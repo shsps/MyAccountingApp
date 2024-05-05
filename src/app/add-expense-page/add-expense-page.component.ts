@@ -15,7 +15,9 @@ export class AddExpensePageComponent implements OnInit
 {
   dateToday:Date|undefined;
   IsShowExpensePage:boolean = false;
+
   
+
   IconList:string[] = [
     'fa-solid fa-pizza-slice',
     'fa-solid fa-mug-hot',
@@ -50,8 +52,6 @@ export class AddExpensePageComponent implements OnInit
   ngOnInit(): void 
   {
     this.dateToday = new Date();
-    // const t_date = new Date("2024-04-01")
-    // console.log(t_date);
   }
   
   DateClick(datePicker:HTMLInputElement)
@@ -106,6 +106,12 @@ export class AddExpensePageComponent implements OnInit
 
     this.databaseApi.AddExpenses(expense);
     this.IsShowExpensePage = false;
+  }
+
+  EditExpense(id:string)
+  {
+    const findExpense = this.databaseApi.ExpensesList.find((value) => value.id == id);
+
   }
 
   ClosePage()

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, viewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Expenses } from './@models/Expenses.model';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -30,6 +30,8 @@ export class AppComponent implements OnInit, AfterViewInit
   DateFromMax!:string;
   @ViewChild('dateTo') dateTo!:ElementRef<HTMLInputElement>;
   DateToMin!:string;
+
+  @ViewChild(AddExpensePageComponent) addExpensePage!:AddExpensePageComponent;
   
   ngAfterViewInit(): void 
   {
@@ -56,5 +58,13 @@ export class AppComponent implements OnInit, AfterViewInit
     this.DateToMin = this.dateFrom.nativeElement.value as string;
 
     this.databaseApi.GetExpenses(this.dateFrom.nativeElement.value, this.dateTo.nativeElement.value);
+  }
+
+  EditExpenseClick(event:MouseEvent)
+  {
+    const target = event.currentTarget as HTMLElement;
+    const id = target.children[5].textContent as string;
+
+    this.addExpensePage.EditExpense(id);
   }
 }
