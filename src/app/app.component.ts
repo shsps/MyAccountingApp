@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, viewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Expenses } from './@models/Expenses.model';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -32,6 +32,7 @@ export class AppComponent implements OnInit, AfterViewInit
   DateToMin!:string;
 
   SelectIdList:number[] = [];
+  @ViewChild(AddExpensePageComponent) addExpensePage!:AddExpensePageComponent;
   
   ngAfterViewInit(): void 
   {
@@ -97,4 +98,11 @@ export class AppComponent implements OnInit, AfterViewInit
     img.setAttribute('src', '../assets/TrashCan.png');
   }
 
+  EditExpenseClick(event:MouseEvent)
+  {
+    const target = event.currentTarget as HTMLElement;
+    const id = target.children[5].textContent as string;
+
+    this.addExpensePage.EditExpense(id);
+  }
 }

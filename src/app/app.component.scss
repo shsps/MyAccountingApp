@@ -113,6 +113,7 @@
 {
     display: flex;
     list-style-type: none;
+    cursor: pointer;
 }
 
 #PayListUL>ul>li>*
@@ -151,6 +152,11 @@
 #PayListUL>ul>li>*:nth-child(6)
 {
     width: 35%;
+}
+
+#PayListUL>ul>li>*:nth-child(7)
+{
+    display: none;
 }
 
 #PayListUL li:nth-child(odd)
