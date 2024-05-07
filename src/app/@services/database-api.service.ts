@@ -14,7 +14,6 @@ export class DatabaseApiService
 
   constructor(private http: HttpClient) 
   {
-    this.GetExpenses();
   }
 
   GetExpenses(from?:string, to?:string): void
@@ -22,7 +21,7 @@ export class DatabaseApiService
     let url = '/api/expenses/'
     if(from != undefined && to != undefined)
     {
-      url += `${from}/${to}`;
+      url += `${from}/${to}`;//limit period if giving from and to 
     }
 
     this.http.get<DatabaseResponse>(url).subscribe(data=>

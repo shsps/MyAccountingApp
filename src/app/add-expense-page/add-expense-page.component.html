@@ -1,31 +1,31 @@
-<div id="RootLayout">
+<div #RootLayout id="RootLayout">
     <div id="Cancle" *ngIf="IsShowExpensePage">
-        <button (click)="ClosePage()">X</button>
+        <button (click)="ClosePage(RootLayout)">X</button>
     </div>
     <div id="Layout" *ngIf="IsShowExpensePage">
         <div id="date">
             <span id="year">
-                {{dateToday | date:'yyyy'}}
+                {{dateNow | date:'yyyy'}}
             </span>
             <span id="month" (click)="DateClick(datePicker)">
-                {{dateToday | date:'MM-dd'}}
+                {{dateNow | date:'MM-dd'}}
             </span>
             <input #datePicker type="date">
         </div>
         <div id="icon">
             <button (click)="IconButtonClick()">
-                <i class="fa-solid fa-pizza-slice"></i>
+                <i [class]="IconText"></i>
             </button>
             
         </div>
         <div id="name">
-            <input type="text" placeholder="品項名稱" (click)="InputClick($event)">
+            <input type="text" placeholder="品項名稱" [value]="NameText" (click)="InputClick($event)">
         </div>
         <div id="price">
-            <input type="text" placeholder="價格" (click)="InputClick($event)">
+            <input type="text" placeholder="價格" [value]="PriceText" (click)="InputClick($event)">
         </div>
         <div id="remark">
-            <textarea placeholder="備註"></textarea>
+            <textarea placeholder="備註" [value]="RemarkText"></textarea>
         </div>
     </div>
     <div id="iconMenu" *ngIf="IsSelectingIcon">
@@ -41,7 +41,7 @@
         <img src="../assets/AddExpense.png" 
         (mouseenter)="AddExpense_Enter($event)"
         (mouseleave)="AddExpense_Leave($event)"
-        (click)="AddExpense_Click($event)">
+        (click)="AddExpense_Click($event, RootLayout)">
     </div>
 </div>
 

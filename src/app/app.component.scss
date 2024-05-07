@@ -123,25 +123,32 @@
 
 #PayListUL>ul>li>*:nth-child(1)
 {
-    width: 10%;
+    width: 5%;
+    color: #353b46;
+    cursor: pointer;
 }
 
 #PayListUL>ul>li>*:nth-child(2)
 {
-    width: 5%;
+    width: 10%;
 }
 
 #PayListUL>ul>li>*:nth-child(3)
 {
-    width: 40%;
+    width: 5%;
 }
 
 #PayListUL>ul>li>*:nth-child(4)
 {
-    width: 10%;
+    width: 35%;
 }
 
 #PayListUL>ul>li>*:nth-child(5)
+{
+    width: 10%;
+}
+
+#PayListUL>ul>li>*:nth-child(6)
 {
     width: 35%;
 }
@@ -149,6 +156,14 @@
 #PayListUL li:nth-child(odd)
 {
     background-color: #fffd9d;
+}
+
+#TrashCan
+{
+    position: absolute;
+    width: 80px;
+    right: 110px;
+    bottom: calc(8% + 7.2px);
 }
 
 #Total

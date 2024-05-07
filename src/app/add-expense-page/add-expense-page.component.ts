@@ -13,8 +13,13 @@ import { parseHostBindings } from '@angular/compiler';
 })
 export class AddExpensePageComponent implements OnInit
 {
-  dateToday:Date|undefined;
+  dateNow:Date|undefined;
   IsShowExpensePage:boolean = false;
+
+  IconText:string = 'fa-solid fa-pizza-slice';
+  NameText:string = '';
+  PriceText:string = '';
+  RemarkText:string = '';
   
   IconList:string[] = [
     'fa-solid fa-pizza-slice',
@@ -49,7 +54,7 @@ export class AddExpensePageComponent implements OnInit
 
   ngOnInit(): void 
   {
-    this.dateToday = new Date();
+    this.dateNow = new Date();
     // const t_date = new Date("2024-04-01")
     // console.log(t_date);
   }
@@ -60,7 +65,7 @@ export class AddExpensePageComponent implements OnInit
     datePicker.addEventListener('change', (event)=>
     {
       const tmp:HTMLInputElement = event.target as HTMLInputElement;
-      this.dateToday = new Date(tmp.value);
+      this.dateNow = new Date(tmp.value);
     });
   }
 
@@ -74,20 +79,23 @@ export class AddExpensePageComponent implements OnInit
     $(event.currentTarget as EventTarget).attr('src', './assets/AddExpense.png');
   }
 
-  AddExpense_Click(event:MouseEvent)
+  AddExpense_Click(event:MouseEvent, div:HTMLDivElement)
   {
     if(!this.IsShowExpensePage)
     {
+      div.style.width = '600px';
+      div.style.height = '500px';
       this.IsShowExpensePage = true;
       return;
     }
 
-    let date1:string = $("#Layout>#date>#year").text().trim();
-    let date2:string = $("#Layout>#date>#month").text().trim();
     let input1:string = $("#Layout>#name>input").val() as string;
     let input2:string = $("#Layout>#price>input").val() as string;
     let input3:string = $("#Layout>#remark>textarea").val() as string;
-    let icon:string = $("#Layout>#icon>button>i").attr('class') as string;
+
+    let year = this.dateNow?.getFullYear();
+    let month = String(this.dateNow?.getMonth() as number + 1).padStart(2, '0');
+    let day = String(this.dateNow?.getDate()).padStart(2, '0');
 
     if(this.ExpenseInputEmptyCheck())
     {
@@ -97,8 +105,8 @@ export class AddExpensePageComponent implements OnInit
     let expense:Expenses = 
     {
       id:"",
-      date: `${date1}-${date2}`,
-      icon: icon,
+      date: `${year}-${month}-${day}`,
+      icon: this.IconText,
       name: input1,
       money: parseInt(input2),
       remark: input3
@@ -108,8 +116,10 @@ export class AddExpensePageComponent implements OnInit
     this.IsShowExpensePage = false;
   }
 
-  ClosePage()
+  ClosePage(div:HTMLDivElement)
   {
+    div.style.width = 'auto';
+    div.style.height = 'auto';
     this.IsShowExpensePage = false;
   }
 
@@ -185,8 +195,7 @@ export class AddExpensePageComponent implements OnInit
       iconName = target.getAttribute('class') as string;
     }
     
-    console.log(iconName);
-    $('#icon>button>i').attr('class', iconName);
+    this.IconText = iconName;
     this.IsSelectingIcon = false;
   }
 }
