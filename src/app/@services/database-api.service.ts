@@ -80,4 +80,16 @@ export class DatabaseApiService
 
     this.ExpensesList = this.ExpensesList.filter((_,index) => !indexList.includes(index));
   }
+
+  EditExpense(expense:Expenses)
+  {
+    this.http.put('/api/expenses', expense).subscribe();
+
+    let findExpense = this.ExpensesList.find((value) => value.id==expense.id) as Expenses;
+    findExpense.date = expense.date;
+    findExpense.icon = expense.icon;
+    findExpense.money = expense.money;
+    findExpense.name = expense.name;
+    findExpense.remark = expense.remark;
+  }
 }

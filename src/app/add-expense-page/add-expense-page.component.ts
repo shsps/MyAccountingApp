@@ -90,11 +90,8 @@ export class AddExpensePageComponent implements OnInit
     $(event.currentTarget as EventTarget).attr('src', src);
   }
 
-  AddExpense_Click(event?:MouseEvent)
+  ReadExpense():Expenses
   {
-    this.OpenPage();
-    if(!this.IsShowExpensePage) return;
-
     let input1:string = $("#Layout>#name>input").val() as string;
     let input2:string = $("#Layout>#price>input").val() as string;
     let input3:string = $("#Layout>#remark>textarea").val() as string;
@@ -102,11 +99,6 @@ export class AddExpensePageComponent implements OnInit
     let year = this.dateNow?.getFullYear();
     let month = String(this.dateNow?.getMonth() as number + 1).padStart(2, '0');
     let day = String(this.dateNow?.getDate()).padStart(2, '0');
-
-    if(this.ExpenseInputEmptyCheck())
-    {
-      return;
-    }
 
     let expense:Expenses = 
     {
@@ -117,6 +109,21 @@ export class AddExpensePageComponent implements OnInit
       money: parseInt(input2),
       remark: input3
     }
+
+    return expense
+  }
+
+  AddExpense_Click(event?:MouseEvent)
+  {
+    this.OpenPage();
+    if(!this.IsShowExpensePage) return;
+
+    if(this.ExpenseInputEmptyCheck())
+    {
+      return;
+    }
+
+    let expense:Expenses = this.ReadExpense()
 
     this.databaseApi.AddExpenses(expense);
     this.IsShowExpensePage = false;
@@ -137,7 +144,14 @@ export class AddExpensePageComponent implements OnInit
 
   EditExpense_Click()
   {
+    if(this.ExpenseInputEmptyCheck())
+    {
+      return;
+    }
+    
+    let expense:Expenses = this.ReadExpense();
 
+    this.databaseApi.EditExpense(expense);
   }
 
   InputClick(event:MouseEvent)
