@@ -20,7 +20,6 @@ export class AddExpensePageComponent implements OnInit
   NameText:string = '';
   PriceText:string = '';
   RemarkText:string = '';
-  
 
   IconList:string[] = [
     'fa-solid fa-pizza-slice',
@@ -51,6 +50,8 @@ export class AddExpensePageComponent implements OnInit
   ];
   IsSelectingIcon:boolean = false;
 
+  IsEditExpense:boolean = false;
+
   constructor(private databaseApi:DatabaseApiService) {}
 
   ngOnInit(): void 
@@ -68,25 +69,31 @@ export class AddExpensePageComponent implements OnInit
     });
   }
 
-  AddExpense_Enter(event:MouseEvent)
+  OpenPage()
   {
-    $(event.currentTarget as EventTarget).attr('src', './assets/AddExpense_Press.png');
+    let div = $('#RootLayout');
+    div.width('600px');
+    div.height('500px');
+    this.IsShowExpensePage = true;
   }
 
-  AddExpense_Leave(event:MouseEvent)
+  ClosePage(div:HTMLDivElement)
   {
-    $(event.currentTarget as EventTarget).attr('src', './assets/AddExpense.png');
+    div.style.width = 'auto';
+    div.style.height = 'auto';
+    this.IsShowExpensePage = false;
+    this.IsEditExpense = false;
   }
 
-  AddExpense_Click(event:MouseEvent, div:HTMLDivElement)
+  ButtonSrcChange(event:MouseEvent, src:string)
   {
-    if(!this.IsShowExpensePage)
-    {
-      div.style.width = '600px';
-      div.style.height = '500px';
-      this.IsShowExpensePage = true;
-      return;
-    }
+    $(event.currentTarget as EventTarget).attr('src', src);
+  }
+
+  AddExpense_Click(event?:MouseEvent)
+  {
+    this.OpenPage();
+    if(!this.IsShowExpensePage) return;
 
     let input1:string = $("#Layout>#name>input").val() as string;
     let input2:string = $("#Layout>#price>input").val() as string;
@@ -115,18 +122,22 @@ export class AddExpensePageComponent implements OnInit
     this.IsShowExpensePage = false;
   }
 
-  
   EditExpense(id:string)
   {
-    const findExpense = this.databaseApi.ExpensesList.find((value) => value.id == id);
+    this.OpenPage();
+    this.IsEditExpense = true;
 
+    const findExpense = this.databaseApi.ExpensesList.find((value) => value.id == id) as Expenses;
+    this.dateNow = new Date(findExpense.date);
+    this.IconText = findExpense.icon;
+    this.NameText = findExpense.name;
+    this.PriceText = String(findExpense.money);
+    this.RemarkText = findExpense.remark;
   }
 
-  ClosePage(div:HTMLDivElement)
+  EditExpense_Click()
   {
-    div.style.width = 'auto';
-    div.style.height = 'auto';
-    this.IsShowExpensePage = false;
+
   }
 
   InputClick(event:MouseEvent)

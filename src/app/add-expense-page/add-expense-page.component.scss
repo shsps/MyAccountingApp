@@ -182,7 +182,7 @@
 
 //---------------------------------------
 
-#AddExpense
+.Action
 {
     position: absolute;
     width: 80px;
@@ -190,7 +190,8 @@
     bottom: 0;
 }
 
-#AddExpense img
+.Action img
 {
     width: 100%;
 }
+

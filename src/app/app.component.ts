@@ -31,7 +31,7 @@ export class AppComponent implements OnInit, AfterViewInit
   @ViewChild('dateTo') dateTo!:ElementRef<HTMLInputElement>;
   DateToMin!:string;
 
-  SelectIdList:number[] = [];
+  SelectInexList:number[] = [];
   @ViewChild(AddExpensePageComponent) addExpensePage!:AddExpensePageComponent;
   
   ngAfterViewInit(): void 
@@ -65,17 +65,19 @@ export class AppComponent implements OnInit, AfterViewInit
   {
     let i = event.target as HTMLElement;
     let li = i.parentElement as HTMLElement;
-
+    let listIndex:number = parseInt((li.getAttribute('id') as string).replace('list', ''));
+    
     if(i.getAttribute('class') == 'fa-regular fa-square')
     {
       i.setAttribute('class', 'fa-regular fa-square-check');
       li.style.backgroundColor = '#ffcc00';
+      this.SelectInexList.push(listIndex);
     }
     else
     {
       i.setAttribute('class', 'fa-regular fa-square');
-      let listid:number = parseInt((li.getAttribute('id') as string).replace('list', ''));
-      if(listid % 2)
+      this.SelectInexList = this.SelectInexList.filter( num => num != listIndex)
+      if(listIndex % 2)
       {
         li.style.backgroundColor = '#FFFFFF';
       }
@@ -98,10 +100,15 @@ export class AppComponent implements OnInit, AfterViewInit
     img.setAttribute('src', '../assets/TrashCan.png');
   }
 
+  TrashCan_MouseClick()
+  {
+    this.databaseApi.DeleteExpense(this.SelectInexList);
+  }
+
   EditExpenseClick(event:MouseEvent)
   {
     const target = event.currentTarget as HTMLElement;
-    const id = target.children[5].textContent as string;
+    const id = target.children[6].textContent as string;
 
     this.addExpensePage.EditExpense(id);
   }

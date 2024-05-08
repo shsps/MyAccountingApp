@@ -37,11 +37,17 @@
             <!-- <i>X</i> -->
         </div>
     </div>
-    <div id="AddExpense">
-        <img src="../assets/AddExpense.png" 
-        (mouseenter)="AddExpense_Enter($event)"
-        (mouseleave)="AddExpense_Leave($event)"
-        (click)="AddExpense_Click($event, RootLayout)">
+    <div class="Action" id="AddExpense">
+        <img src="../../assets/AddExpense.png" 
+        (mouseenter)="ButtonSrcChange($event, './assets/AddExpense_Press.png')"
+        (mouseleave)="ButtonSrcChange($event, './assets/AddExpense.png')"
+        (click)="AddExpense_Click($event)">
+    </div>
+    <div class="Action" id="EditExpense" *ngIf="IsEditExpense">
+        <img src="../../assets/EditExpense.png" 
+        (mouseenter)="ButtonSrcChange($event, '../../assets/EditExpense_Press.png')" 
+        (mouseleave)="ButtonSrcChange($event, '../../assets/EditExpense.png')" 
+        (click)="EditExpense_Click()">
     </div>
 </div>
 

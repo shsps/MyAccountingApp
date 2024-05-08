@@ -64,4 +64,20 @@ export class DatabaseApiService
     }
     
   }
+
+  DeleteExpense(indexList:number[])
+  {
+    let idList:string[] = [];
+    indexList.forEach((value) =>
+    {
+      idList.push(this.ExpensesList[value].id);
+    })
+
+    let ids = {ids:idList};
+    let req = {body:ids}
+    // console.log(req);
+    this.http.delete('/api/expenses', req).subscribe();
+
+    this.ExpensesList = this.ExpensesList.filter((_,index) => !indexList.includes(index));
+  }
 }

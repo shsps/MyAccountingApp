@@ -34,9 +34,10 @@
         </li>
       </ul>
       <app-add-expense-page></app-add-expense-page>
-      <img id="TrashCan" src="../assets/TrashCan.png" 
+      <img class="Clickable" id="TrashCan" src="../assets/TrashCan.png" 
       (mouseenter)="TrashCan_MouseEnter($event)" 
-      (mouseleave)="TrashCan_MouseLeave($event)">
+      (mouseleave)="TrashCan_MouseLeave($event)"
+      (click)="TrashCan_MouseClick()">
     </div>
     <div id="Total">
       <span></span>
