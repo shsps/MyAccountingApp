@@ -21,7 +21,6 @@ import { DatabaseApiService } from './@services/database-api.service';
 
 export class AppComponent implements OnInit, AfterViewInit
 {
-  title = 'MyAccountingApp';
   IsShowExpensePage:boolean = false;
   IsShowTrashCan:boolean = false;
   IsShowAddExpense:boolean = true;
