@@ -23,21 +23,28 @@
   <div id="Div2_2">
     <div id="PayListUL">
       <ul>
-        <li (click)="EditExpenseClick($event)" *ngFor="let item of databaseApi.ExpensesList; index as i" id="list{{i}}">
+        <li *ngFor="let item of databaseApi.ExpensesList; index as i" id="list{{i}}">
           <i class="fa-regular fa-square" (click)="ListCheckClick($event)"></i>
-          <span>{{item.date | date:'MM/dd'}}</span>
-          <i [(class)]="item.icon"></i>
-          <span>{{item.name}}</span>
-          <span>{{item.money}}</span>
-          <span>{{item.remark}}</span>
-          <span>{{item.id}}</span>
+          <span (click)="EditExpenseClick($event)">{{item.date | date:'MM/dd'}}</span>
+          <i [(class)]="item.icon" (click)="EditExpenseClick($event)"></i>
+          <span (click)="EditExpenseClick($event)">{{item.name}}</span>
+          <span (click)="EditExpenseClick($event)">{{item.money}}</span>
+          <span (click)="EditExpenseClick($event)">{{item.remark}}</span>
+          <span (click)="EditExpenseClick($event)">{{item.id}}</span>
         </li>
       </ul>
       <app-add-expense-page></app-add-expense-page>
-      <img class="Clickable" id="TrashCan" src="../assets/TrashCan.png" 
-      (mouseenter)="TrashCan_MouseEnter($event)" 
-      (mouseleave)="TrashCan_MouseLeave($event)"
+
+      <img class="Clickable" id="TrashCan" *ngIf="IsShowTrashCan" src="../assets/TrashCan.png" 
+      (mouseenter)="ButtonSrcChange($event, '../assets/TrashCan_Press.png')" 
+      (mouseleave)="ButtonSrcChange($event, '../assets/TrashCan.png')"
       (click)="TrashCan_MouseClick()">
+
+      <img class="Clickable" id="AddExpense" *ngIf="IsShowAddExpense" src="../../assets/AddExpense.png" 
+      (mouseenter)="ButtonSrcChange($event, './assets/AddExpense_Press.png')"
+      (mouseleave)="ButtonSrcChange($event, './assets/AddExpense.png')"
+      (click)="AddExpenseClick()">
+
     </div>
     <div id="Total">
       <span></span>

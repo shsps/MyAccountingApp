@@ -173,7 +173,15 @@
 {
     position: absolute;
     width: 80px;
-    right: 510px;
+    right: 110px;
+    bottom: calc(8% + 7.2px);
+}
+
+#AddExpense
+{
+    position: absolute;
+    width: 80px;
+    right: 110px;
     bottom: calc(8% + 7.2px);
 }
 

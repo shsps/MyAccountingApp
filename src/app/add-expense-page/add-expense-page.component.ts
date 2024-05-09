@@ -14,12 +14,15 @@ import { parseHostBindings } from '@angular/compiler';
 export class AddExpensePageComponent implements OnInit
 {
   dateNow:Date|undefined;
-  IsShowExpensePage:boolean = false;
+  IsShowExpense:boolean = false;
+  IsShowAddButton:boolean = false;
+  IsShowEditButton:boolean = false;
 
   IconText:string = 'fa-solid fa-pizza-slice';
   NameText:string = '';
   PriceText:string = '';
   RemarkText:string = '';
+  ExpenseId:string = '';
 
   IconList:string[] = [
     'fa-solid fa-pizza-slice',
@@ -50,8 +53,6 @@ export class AddExpensePageComponent implements OnInit
   ];
   IsSelectingIcon:boolean = false;
 
-  IsEditExpense:boolean = false;
-
   constructor(private databaseApi:DatabaseApiService) {}
 
   ngOnInit(): void 
@@ -71,18 +72,29 @@ export class AddExpensePageComponent implements OnInit
 
   OpenPage()
   {
+    this.IsShowExpense = true;
+
     let div = $('#RootLayout');
     div.width('600px');
     div.height('500px');
-    this.IsShowExpensePage = true;
+
+    this.dateNow = new Date();
+    this.IconText = 'fa-solid fa-pizza-slice';
+    this.NameText = '';
+    this.PriceText = '';
+    this.RemarkText = '';
+    this.ExpenseId = '';
   }
 
-  ClosePage(div:HTMLDivElement)
+  ClosePage()
   {
-    div.style.width = 'auto';
-    div.style.height = 'auto';
-    this.IsShowExpensePage = false;
-    this.IsEditExpense = false;
+    let div = $('#RootLayout');
+    div.width('auto');
+    div.height('auto');
+
+    this.IsShowAddButton = false;
+    this.IsShowEditButton = false;
+    this.IsShowExpense = false;
   }
 
   ButtonSrcChange(event:MouseEvent, src:string)
@@ -102,7 +114,7 @@ export class AddExpensePageComponent implements OnInit
 
     let expense:Expenses = 
     {
-      id:"",
+      id:this.ExpenseId,
       date: `${year}-${month}-${day}`,
       icon: this.IconText,
       name: input1,
@@ -113,11 +125,17 @@ export class AddExpensePageComponent implements OnInit
     return expense
   }
 
-  AddExpense_Click(event?:MouseEvent)
+  AddExpenseButton()
   {
     this.OpenPage();
-    if(!this.IsShowExpensePage) return;
 
+    this.ExpenseId = '';
+
+    this.IsShowAddButton = true;
+  }
+
+  AddExpense()
+  {
     if(this.ExpenseInputEmptyCheck())
     {
       return;
@@ -126,13 +144,15 @@ export class AddExpensePageComponent implements OnInit
     let expense:Expenses = this.ReadExpense()
 
     this.databaseApi.AddExpenses(expense);
-    this.IsShowExpensePage = false;
+    
+    this.ClosePage();
   }
 
-  EditExpense(id:string)
+  EditExpenseButton(id:string)
   {
     this.OpenPage();
-    this.IsEditExpense = true;
+    this.ExpenseId = id;
+    this.IsShowEditButton = true;
 
     const findExpense = this.databaseApi.ExpensesList.find((value) => value.id == id) as Expenses;
     this.dateNow = new Date(findExpense.date);
@@ -142,16 +162,18 @@ export class AddExpensePageComponent implements OnInit
     this.RemarkText = findExpense.remark;
   }
 
-  EditExpense_Click()
+  EditExpense()
   {
     if(this.ExpenseInputEmptyCheck())
     {
       return;
     }
-    
+
     let expense:Expenses = this.ReadExpense();
 
     this.databaseApi.EditExpense(expense);
+
+    this.ClosePage();
   }
 
   InputClick(event:MouseEvent)

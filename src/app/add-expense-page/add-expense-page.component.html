@@ -1,8 +1,8 @@
 <div #RootLayout id="RootLayout">
-    <div id="Cancle" *ngIf="IsShowExpensePage">
-        <button (click)="ClosePage(RootLayout)">X</button>
+    <div id="Cancle" *ngIf="IsShowExpense">
+        <button (click)="ClosePage()">X</button>
     </div>
-    <div id="Layout" *ngIf="IsShowExpensePage">
+    <div id="Layout" *ngIf="IsShowExpense">
         <div id="date">
             <span id="year">
                 {{dateNow | date:'yyyy'}}
@@ -37,17 +37,17 @@
             <!-- <i>X</i> -->
         </div>
     </div>
-    <div class="Action" id="AddExpense">
+    <div class="Action" id="AddExpense" *ngIf="IsShowAddButton">
         <img src="../../assets/AddExpense.png" 
         (mouseenter)="ButtonSrcChange($event, './assets/AddExpense_Press.png')"
         (mouseleave)="ButtonSrcChange($event, './assets/AddExpense.png')"
-        (click)="AddExpense_Click($event)">
+        (click)="AddExpense()">
     </div>
-    <div class="Action" id="EditExpense" *ngIf="IsEditExpense">
+    <div class="Action" id="EditExpense" *ngIf="IsShowEditButton">
         <img src="../../assets/EditExpense.png" 
-        (mouseenter)="ButtonSrcChange($event, '../../assets/EditExpense_Press.png')" 
-        (mouseleave)="ButtonSrcChange($event, '../../assets/EditExpense.png')" 
-        (click)="EditExpense_Click()">
+        (mouseenter)="ButtonSrcChange($event, './assets/EditExpense_Press.png')"
+        (mouseleave)="ButtonSrcChange($event, './assets/EditExpense.png')"
+        (click)="EditExpense()">
     </div>
 </div>
 

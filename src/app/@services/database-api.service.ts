@@ -1,6 +1,7 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Expenses } from '../@models/Expenses.model';
+import { ResponseData } from '../@models/HttpResponse.model'
 import { DatabaseResponse } from '../@models/DatabaseResponse.model';
 
 @Injectable({
@@ -11,9 +12,20 @@ export class DatabaseApiService
   // private url = "/api/expenses";
   public ExpensesList:Expenses[] = [];
   public TotalPrice:number = 0;
+  private DateFrom!:string;
+  private DateTo!:string;
 
-  constructor(private http: HttpClient) 
+
+  constructor(private http: HttpClient) {}
+
+  UpdateTotalPrice()
   {
+    this.TotalPrice = 0;
+
+    this.ExpensesList.forEach((value) =>
+    {
+      this.TotalPrice += value.money;
+    });
   }
 
   GetExpenses(from?:string, to?:string): void
@@ -21,47 +33,47 @@ export class DatabaseApiService
     let url = '/api/expenses/'
     if(from != undefined && to != undefined)
     {
-      url += `${from}/${to}`;//limit period if giving from and to 
+      url += `${from}/${to}`;//limit period if giving from and to
+      this.DateFrom = from;
+      this.DateTo = to;
     }
 
     this.http.get<DatabaseResponse>(url).subscribe(data=>
     {
       this.ExpensesList = data.result as Expenses[];
-      this.TotalPrice = 0;
-      this.ExpensesList.forEach((value) =>
-      {
-        this.TotalPrice += value.money;
-      });
+      this.UpdateTotalPrice();
     })
   }
 
   AddExpenses(expense:Expenses)
   {
-    this.http.post('/api/expenses', expense).subscribe();
-    
-    let dateNow = new Date(expense.date);
-    let dateFrom = new Date($('#Div2_1>input:nth-child(1)').val() as string);
-    let dateTo = new Date($('#Div2_1>input:nth-child(3)').val() as string);
-    
-    
-    if(dateNow >= dateFrom && dateNow <= dateTo)
+    this.http.post('/api/expenses', expense).subscribe((response) =>
     {
-      this.TotalPrice += expense.money;
-      this.ExpensesList.push(expense);
-      this.ExpensesList.sort((a, b) =>
-      {
-        const dateA = new Date(a.date);
-        const dateB = new Date(b.date);
+      let res = response as ResponseData;
+      
+      let getId:number = res.result.insertId;
+      let dateNow = new Date(expense.date);
+      let dateFrom = new Date(this.DateFrom);
+      let dateTo = new Date(this.DateTo);
 
-        if (dateA < dateB) {
-            return -1;
-        } else if (dateA > dateB) {
-            return 1;
-        } else {
-            return 0;
-        }
-      });
-    }
+      //Show if between the period
+      if(dateNow >= dateFrom && dateNow <= dateTo)
+      {
+        expense.id = String(getId);
+        this.ExpensesList.push(expense);
+        this.ExpensesList.sort((a, b) =>
+        {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
+          
+          if (dateA < dateB) return -1;
+          else if (dateA > dateB) return 1;
+          else return 0;
+        });
+
+        this.UpdateTotalPrice();
+      }
+    });
     
   }
 
@@ -75,10 +87,10 @@ export class DatabaseApiService
 
     let ids = {ids:idList};
     let req = {body:ids}
-    // console.log(req);
     this.http.delete('/api/expenses', req).subscribe();
 
     this.ExpensesList = this.ExpensesList.filter((_,index) => !indexList.includes(index));
+    this.UpdateTotalPrice();
   }
 
   EditExpense(expense:Expenses)

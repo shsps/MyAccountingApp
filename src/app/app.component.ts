@@ -23,6 +23,8 @@ export class AppComponent implements OnInit, AfterViewInit
 {
   title = 'MyAccountingApp';
   IsShowExpensePage:boolean = false;
+  IsShowTrashCan:boolean = false;
+  IsShowAddExpense:boolean = true;
 
   constructor(public databaseApi:DatabaseApiService) {}
 
@@ -34,8 +36,10 @@ export class AppComponent implements OnInit, AfterViewInit
   SelectInexList:number[] = [];
   @ViewChild(AddExpensePageComponent) addExpensePage!:AddExpensePageComponent;
   
+  
   ngAfterViewInit(): void 
   {
+    //Set date to first and last day of this month
     let today = new Date();
     today.setMonth(today.getMonth(), 1);
     this.dateFrom.nativeElement.valueAsDate = today;
@@ -53,6 +57,11 @@ export class AppComponent implements OnInit, AfterViewInit
   {
   }
 
+  ButtonSrcChange(event:MouseEvent, src:string)
+  {
+    $(event.currentTarget as EventTarget).attr('src', src);
+  }
+
   SetDateMinAndMax()
   {
     this.DateFromMax = this.dateTo.nativeElement.value as string;
@@ -67,13 +76,16 @@ export class AppComponent implements OnInit, AfterViewInit
     let li = i.parentElement as HTMLElement;
     let listIndex:number = parseInt((li.getAttribute('id') as string).replace('list', ''));
     
-    if(i.getAttribute('class') == 'fa-regular fa-square')
+    if(i.getAttribute('class') == 'fa-regular fa-square') //check
     {
       i.setAttribute('class', 'fa-regular fa-square-check');
       li.style.backgroundColor = '#ffcc00';
       this.SelectInexList.push(listIndex);
+
+      this.IsShowTrashCan = true;
+      this.IsShowAddExpense =false;
     }
-    else
+    else //uncheck
     {
       i.setAttribute('class', 'fa-regular fa-square');
       this.SelectInexList = this.SelectInexList.filter( num => num != listIndex)
@@ -85,31 +97,41 @@ export class AppComponent implements OnInit, AfterViewInit
       {
         li.style.backgroundColor = '#fffd9d';
       }
-    }
-  }
 
-  TrashCan_MouseEnter(event:MouseEvent)
-  {
-    let img = event.target as HTMLElement;
-    img.setAttribute('src', '../assets/TrashCan_Press.png');
-  }
-  
-  TrashCan_MouseLeave(event:MouseEvent)
-  {
-    let img = event.target as HTMLElement;
-    img.setAttribute('src', '../assets/TrashCan.png');
+      if(this.SelectInexList.length == 0)
+      {
+        this.IsShowTrashCan = false;
+        this.IsShowAddExpense = true;
+      }
+    }
   }
 
   TrashCan_MouseClick()
   {
     this.databaseApi.DeleteExpense(this.SelectInexList);
+
+    this.SelectInexList = [];
+    this.IsShowTrashCan = false;
+    this.IsShowAddExpense = true;
+  }
+
+  AddExpenseClick()
+  {
+    this.IsShowExpensePage = true;
+
+    this.addExpensePage.AddExpenseButton();
   }
 
   EditExpenseClick(event:MouseEvent)
   {
-    const target = event.currentTarget as HTMLElement;
-    const id = target.children[6].textContent as string;
+    if(this.SelectInexList.length > 0) return;
 
-    this.addExpensePage.EditExpense(id);
+    this.IsShowExpensePage = true;
+
+    const target = event.currentTarget as HTMLElement;
+    const parentElement = target.parentElement as HTMLElement;
+    const id = parentElement.children[6].textContent as string;
+
+    this.addExpensePage.EditExpenseButton(id);
   }
 }
