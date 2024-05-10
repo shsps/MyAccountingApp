@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { DatabaseApiService } from '../@services/database-api.service';
-import { Expenses } from '../@models/Expenses.model';
+import { DatabaseApiService } from '../../@services/database-api.service';
+import { Expenses } from '../../@models/Expenses.model';
 import { parseHostBindings } from '@angular/compiler';
 
 @Component({

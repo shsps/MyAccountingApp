@@ -1,11 +1,9 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, viewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Expenses } from './@models/Expenses.model';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { DatabaseResponse } from './@models/DatabaseResponse.model';
 import { CommonModule } from '@angular/common';
-import { AddExpensePageComponent } from './add-expense-page/add-expense-page.component';
+import { AddExpensePageComponent } from './accounting-page/add-expense-page/add-expense-page.component';
 import { DatabaseApiService } from './@services/database-api.service';
+import { AccountingPageComponent } from './accounting-page/accounting-page.component';
 
 @Component(
   {
@@ -13,7 +11,8 @@ import { DatabaseApiService } from './@services/database-api.service';
     standalone: true,
     imports: [RouterOutlet, 
               CommonModule, 
-              AddExpensePageComponent],
+              AddExpensePageComponent,
+              AccountingPageComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
   }
@@ -21,9 +20,38 @@ import { DatabaseApiService } from './@services/database-api.service';
 
 export class AppComponent implements OnInit, AfterViewInit
 {
-  IsShowExpensePage:boolean = false;
-  IsShowTrashCan:boolean = false;
-  IsShowAddExpense:boolean = true;
+  IsShowAccountingPage:boolean = true;
+  IsShowSearchExpense:boolean = true;
+  IsSelectingIcon:boolean = false;
+
+  IconList:string[] = [
+    'fa-solid fa-x',
+    'fa-solid fa-pizza-slice',
+    'fa-solid fa-mug-hot',
+    'fa-solid fa-fish',
+    'fa-solid fa-shirt',
+    'fa-solid fa-bag-shopping',
+    'fa-solid fa-car-side',
+    'fa-solid fa-pencil',
+    'fa-solid fa-store',
+    'fa-solid fa-wallet',
+    'fa-brands fa-cc-visa',
+    'fa-solid fa-hammer',
+    'fa-brands fa-google-play',
+    'fa-solid fa-hospital',
+    'fa-solid fa-coins',
+    'fa-solid fa-otter',
+    'fa-solid fa-umbrella-beach',
+    'fa-solid fa-volleyball',
+    'fa-solid fa-tooth',
+    'fa-solid fa-taxi',
+    'fa-solid fa-piggy-bank',
+    'fa-solid fa-mobile-screen-button',
+    'fa-solid fa-ice-cream',
+    'fa-solid fa-couch',
+    'fa-solid fa-cookie',
+    'fa-solid fa-computer'
+  ];
 
   constructor(public databaseApi:DatabaseApiService) {}
 
@@ -69,68 +97,44 @@ export class AppComponent implements OnInit, AfterViewInit
     this.databaseApi.GetExpenses(this.dateFrom.nativeElement.value, this.dateTo.nativeElement.value);
   }
 
-  ListCheckClick(event:MouseEvent)
+  SearchButtonClick()
   {
-    let i = event.target as HTMLElement;
-    let li = i.parentElement as HTMLElement;
-    let listIndex:number = parseInt((li.getAttribute('id') as string).replace('list', ''));
+    this.IsShowSearchExpense = true;
+  }
+
+  SearchIconClick()
+  {
+    this.IsSelectingIcon = true;
+  }
+
+  IconMouseEnter(event:MouseEvent)
+  {
+    let target:HTMLElement = event.target as HTMLElement;
+    target.style.backgroundColor = 'gray'
+  }
+
+  IconMouseLeave(event:MouseEvent)
+  {
+    let target:HTMLElement = event.target as HTMLElement;
+    target.style.backgroundColor = 'white'
+  }
+
+  IconSelect(event:MouseEvent)
+  {
+    /* not complete yet
+    let target:HTMLElement = event.target as HTMLElement;
+    let iconName:string = 'None';
+
+    if(target.tagName == 'DIV')
+    {
+      let child:HTMLElement = target.firstChild as HTMLElement;
+      iconName = child.getAttribute('class') as string;
+    }
+    else if(target.tagName == 'I')
+    {
+      iconName = target.getAttribute('class') as string;
+    }
     
-    if(i.getAttribute('class') == 'fa-regular fa-square') //check
-    {
-      i.setAttribute('class', 'fa-regular fa-square-check');
-      li.style.backgroundColor = '#ffcc00';
-      this.SelectInexList.push(listIndex);
-
-      this.IsShowTrashCan = true;
-      this.IsShowAddExpense =false;
-    }
-    else //uncheck
-    {
-      i.setAttribute('class', 'fa-regular fa-square');
-      this.SelectInexList = this.SelectInexList.filter( num => num != listIndex)
-      if(listIndex % 2)
-      {
-        li.style.backgroundColor = '#FFFFFF';
-      }
-      else
-      {
-        li.style.backgroundColor = '#fffd9d';
-      }
-
-      if(this.SelectInexList.length == 0)
-      {
-        this.IsShowTrashCan = false;
-        this.IsShowAddExpense = true;
-      }
-    }
-  }
-
-  TrashCan_MouseClick()
-  {
-    this.databaseApi.DeleteExpense(this.SelectInexList);
-
-    this.SelectInexList = [];
-    this.IsShowTrashCan = false;
-    this.IsShowAddExpense = true;
-  }
-
-  AddExpenseClick()
-  {
-    this.IsShowExpensePage = true;
-
-    this.addExpensePage.AddExpenseButton();
-  }
-
-  EditExpenseClick(event:MouseEvent)
-  {
-    if(this.SelectInexList.length > 0) return;
-
-    this.IsShowExpensePage = true;
-
-    const target = event.currentTarget as HTMLElement;
-    const parentElement = target.parentElement as HTMLElement;
-    const id = parentElement.children[6].textContent as string;
-
-    this.addExpensePage.EditExpenseButton(id);
+    this.IsSelectingIcon = false;*/
   }
 }

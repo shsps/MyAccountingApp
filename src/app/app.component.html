@@ -8,9 +8,26 @@
     </div>
   </div>
   <div id="Div1_2">
-    <button>記帳</button>
-    <button>統計</button>
-    <button>查詢</button>
+    <button class="Clickable" id="AccountingButton">記帳</button>
+    <button class="Clickable" id="AnalyzeButton">統計</button>
+    <!-- <button class="Clickable" id="SearchButton" (click)="SearchButtonClick()">查詢</button> -->
+    <img class="Clickable" id="SearchButton" src="../assets/Magnifier.png" (click)="SearchButtonClick()">
+    <div id="SearchArea" *ngIf="IsShowSearchExpense">
+      <div id="Icon">
+        <i class="fa-solid fa-x" (click)="SearchIconClick()"></i>
+        <div id="iconMenu" *ngIf="IsSelectingIcon">
+          <div *ngFor="let item of IconList" 
+          (mouseenter)="IconMouseEnter($event)" 
+          (mouseleave)="IconMouseLeave($event)" 
+          (click)="IconSelect($event)">
+              <i class="{{item}}"></i>
+          </div>
+        </div>
+      </div>
+      <div id="SearchQuery">
+        <input type="text" placeholder="請輸入關鍵字">
+      </div>
+    </div>
   </div>
 </div>
 
@@ -21,35 +38,6 @@
     <input #dateTo type="date" [min]="DateToMin" (change)="SetDateMinAndMax()">
   </div>
   <div id="Div2_2">
-    <div id="PayListUL">
-      <ul>
-        <li *ngFor="let item of databaseApi.ExpensesList; index as i" id="list{{i}}">
-          <i class="fa-regular fa-square" (click)="ListCheckClick($event)"></i>
-          <span (click)="EditExpenseClick($event)">{{item.date | date:'MM/dd'}}</span>
-          <i [(class)]="item.icon" (click)="EditExpenseClick($event)"></i>
-          <span (click)="EditExpenseClick($event)">{{item.name}}</span>
-          <span (click)="EditExpenseClick($event)">{{item.money}}</span>
-          <span (click)="EditExpenseClick($event)">{{item.remark}}</span>
-          <span (click)="EditExpenseClick($event)">{{item.id}}</span>
-        </li>
-      </ul>
-      <app-add-expense-page></app-add-expense-page>
-
-      <img class="Clickable" id="TrashCan" *ngIf="IsShowTrashCan" src="../assets/TrashCan.png" 
-      (mouseenter)="ButtonSrcChange($event, '../assets/TrashCan_Press.png')" 
-      (mouseleave)="ButtonSrcChange($event, '../assets/TrashCan.png')"
-      (click)="TrashCan_MouseClick()">
-
-      <img class="Clickable" id="AddExpense" *ngIf="IsShowAddExpense" src="../../assets/AddExpense.png" 
-      (mouseenter)="ButtonSrcChange($event, './assets/AddExpense_Press.png')"
-      (mouseleave)="ButtonSrcChange($event, './assets/AddExpense.png')"
-      (click)="AddExpenseClick()">
-
-    </div>
-    <div id="Total">
-      <span></span>
-      <span>總額：</span>
-      <span>{{databaseApi.TotalPrice}}</span>
-    </div>
+    <app-accounting-page *ngIf="IsShowAccountingPage"></app-accounting-page>
   </div>
 </div>

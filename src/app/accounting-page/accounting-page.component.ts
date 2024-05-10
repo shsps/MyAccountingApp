@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
-import { AddExpensePageComponent } from '../add-expense-page/add-expense-page.component';
+import { AddExpensePageComponent } from './add-expense-page/add-expense-page.component';
 import { DatabaseApiService } from '../@services/database-api.service';
 
 @Component({

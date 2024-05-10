@@ -7,13 +7,13 @@
 {
     display: flex;
     height: 20%;
+    background-color: #fcfbe1;
 }
 
 #Div1_1
 {
     display: flex; 
     width: 25%; 
-    // border: solid; 
     align-content: center;
     justify-content: center;
 }
@@ -21,7 +21,6 @@
 #Div1_1_1
 {
     width: 20%;
-    // border: 1px solid #ff0000;
     align-content: center;
 }
 
@@ -33,7 +32,6 @@
 #Div1_1_2
 {
     width: 50%;
-    // border: 1px solid #ff0000;
     align-content: center;
 }
 
@@ -50,6 +48,7 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
+    position: relative;
 }
 
 #Div1_2>button
@@ -57,15 +56,121 @@
     font-size: 30px;
 }
 
-#Div1_2>button:nth-child(3)
+#Div1_2>#SearchButton
 {
+    height: 50px;
     margin-left: auto;
+    margin-right: 10px;
+}
+
+#Div1_2>#SearchButton:hover
+{
+    animation-name: Shake;
+    animation-duration: 500ms;
+    animation-iteration-count: infinite;
+}
+
+@keyframes Shake
+{
+    50%
+    {
+        transform: rotate(30deg);
+    }
+    100%
+    {
+        transform: rotate(0deg);
+    }
+
+}
+
+#SearchArea
+{
+    position: absolute;
+    display: flex;
+    height: 70px;
+    width: 600px;
+    right: 65px;
+    border: 1px solid #000000;
+    background-color: #FFFFFF;
+    border-radius: 5% / 50%;
+}
+
+#SearchArea>#Icon
+{
+    display: flex;
+    height: 100%;
+    width: 20%;
+    border-right: 1px solid #000000;
+    margin-left: 5%;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+#SearchArea>#Icon:hover
+{
+    background-color: #cbcbcb;
+    cursor: pointer;
+}
+
+#Icon>i
+{
+    font-size: 40px;
+}
+
+#iconMenu
+{
+    position: absolute;
+    left: 20%;
+    top: 25%;
+    width: 60%;
+    height: 60%;
+    background-color: white;
+    border: 2px solid black;
+    overflow-y: scroll;
+    // display: flex;
+    // flex-wrap: wrap;
+}
+
+#iconMenu>div
+{
+    width: 20%;
+    height: 20%;
+    justify-content: center;
+    align-content: center;
+    padding: 5% 2.5%;
+    background-color: white;
+    display: inline-block;
+}
+
+#iconMenu>div>i
+{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 200%;
+}
+
+#SearchArea>#SearchQuery
+{
+    height: 100%;
+    width: 70%;
+}
+
+#SearchQuery>input
+{
+    width: 100%;
+    height: 97%;
+    border: 0;
+    font-size: 30px;
+    text-wrap: nowrap;
 }
 
 #Div2
 {
     display: flex;
     height: 80%;
+    background-color: #fcfbe1;
 }
 
 #Div2_1
@@ -96,122 +201,6 @@
 #Div2_2
 {
     width: 75%; 
-    // border: solid;
-    // display: flex;
-    // flex-direction: column;
     font-size: 30px;
-}
-
-#PayListUL
-{
-    height: 90%;
-    overflow-y: auto;
-}
-
-#PayListUL>ul
-{
-    margin: 0;
-    padding: 0;
-}
-
-#PayListUL>ul>li
-{
-    display: flex;
-    list-style-type: none;
-    cursor: pointer;
-}
-
-#PayListUL>ul>li>*
-{
-    text-align: center;
-    align-content: center;
-}
-
-#PayListUL>ul>li>*:nth-child(1)
-{
-    width: 5%;
-    color: #353b46;
-    cursor: pointer;
-}
-
-#PayListUL>ul>li>*:nth-child(2)
-{
-    width: 10%;
-}
-
-#PayListUL>ul>li>*:nth-child(3)
-{
-    width: 5%;
-}
-
-#PayListUL>ul>li>*:nth-child(4)
-{
-    width: 35%;
-}
-
-#PayListUL>ul>li>*:nth-child(5)
-{
-    width: 10%;
-}
-
-#PayListUL>ul>li>*:nth-child(6)
-{
-    width: 35%;
-}
-
-#PayListUL>ul>li>*:nth-child(7)
-{
-    display: none;
-}
-
-#PayListUL li:nth-child(odd)
-{
-    background-color: #fffd9d;
-}
-
-#TrashCan
-{
-    position: absolute;
-    width: 80px;
-    right: 110px;
-    bottom: calc(8% + 7.2px);
-}
-
-#AddExpense
-{
-    position: absolute;
-    width: 80px;
-    right: 110px;
-    bottom: calc(8% + 7.2px);
-}
-
-#Total
-{
-    height: 10%;
-    display: flex;
-    align-items: center;
-    background-color: #ffcb3b;
-}
-
-// #Total span
-// {
-//     position: relative;
-//     top: 25%;
-//     bottom: 25%;
-// }
-
-#Total span:nth-child(1)
-{
-    width: 40%;
-}
-
-#Total span:nth-child(2)
-{
-    width: 16%;
-}
-
-#Total span:nth-child(3)
-{
-    width: 10%;
-    text-align: center;
+    border: 1px solid #909090;
 }

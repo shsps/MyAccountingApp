@@ -1,0 +1,113 @@
+#PayListUL
+{
+    height: 90%;
+    overflow-y: auto;
+}
+
+#PayListUL>ul
+{
+    margin: 0;
+    padding: 0;
+}
+
+#PayListUL>ul>li
+{
+    display: flex;
+    list-style-type: none;
+    cursor: pointer;
+}
+
+#PayListUL>ul>li>*
+{
+    text-align: center;
+    align-content: center;
+}
+
+#PayListUL>ul>li>*:nth-child(1)
+{
+    width: 5%;
+    color: #353b46;
+    cursor: pointer;
+}
+
+#PayListUL>ul>li>*:nth-child(2)
+{
+    width: 10%;
+}
+
+#PayListUL>ul>li>*:nth-child(3)
+{
+    width: 5%;
+}
+
+#PayListUL>ul>li>*:nth-child(4)
+{
+    width: 35%;
+}
+
+#PayListUL>ul>li>*:nth-child(5)
+{
+    width: 10%;
+}
+
+#PayListUL>ul>li>*:nth-child(6)
+{
+    width: 35%;
+}
+
+#PayListUL>ul>li>*:nth-child(7)
+{
+    display: none;
+}
+
+#PayListUL li:nth-child(odd)
+{
+    background-color: #fffd9d;
+}
+
+#TrashCan
+{
+    position: absolute;
+    width: 80px;
+    right: 110px;
+    bottom: calc(8% + 7.2px);
+}
+
+#AddExpense
+{
+    position: absolute;
+    width: 80px;
+    right: 110px;
+    bottom: calc(8% + 7.2px);
+}
+
+#Total
+{
+    height: 10%;
+    display: flex;
+    align-items: center;
+    background-color: #ffcb3b;
+}
+
+// #Total span
+// {
+//     position: relative;
+//     top: 25%;
+//     bottom: 25%;
+// }
+
+#Total span:nth-child(1)
+{
+    width: 40%;
+}
+
+#Total span:nth-child(2)
+{
+    width: 16%;
+}
+
+#Total span:nth-child(3)
+{
+    width: 10%;
+    text-align: center;
+}
