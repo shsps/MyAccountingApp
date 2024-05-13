@@ -121,10 +121,10 @@
 #iconMenu
 {
     position: absolute;
-    left: 20%;
-    top: 25%;
+    left: 0;
+    top: 0;
     width: 60%;
-    height: 60%;
+    height: 140px;
     background-color: white;
     border: 2px solid black;
     overflow-y: scroll;
@@ -141,6 +141,11 @@
     padding: 5% 2.5%;
     background-color: white;
     display: inline-block;
+}
+
+#iconMenu>div:hover
+{
+    background-color: gray;
 }
 
 #iconMenu>div>i

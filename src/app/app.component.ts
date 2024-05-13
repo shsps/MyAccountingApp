@@ -52,6 +52,7 @@ export class AppComponent implements OnInit, AfterViewInit
     'fa-solid fa-cookie',
     'fa-solid fa-computer'
   ];
+  SearchIcon:string = this.IconList[0];
 
   constructor(public databaseApi:DatabaseApiService) {}
 
@@ -102,39 +103,18 @@ export class AppComponent implements OnInit, AfterViewInit
     this.IsShowSearchExpense = true;
   }
 
-  SearchIconClick()
+  SearchIconClick(event:MouseEvent)
   {
     this.IsSelectingIcon = true;
-  }
-
-  IconMouseEnter(event:MouseEvent)
-  {
-    let target:HTMLElement = event.target as HTMLElement;
-    target.style.backgroundColor = 'gray'
-  }
-
-  IconMouseLeave(event:MouseEvent)
-  {
-    let target:HTMLElement = event.target as HTMLElement;
-    target.style.backgroundColor = 'white'
+    console.log((event.target as HTMLElement).id);
   }
 
   IconSelect(event:MouseEvent)
   {
-    /* not complete yet
-    let target:HTMLElement = event.target as HTMLElement;
-    let iconName:string = 'None';
+    let target:HTMLElement = event.currentTarget as HTMLElement;
+    let child:HTMLElement = target.firstChild as HTMLElement;
 
-    if(target.tagName == 'DIV')
-    {
-      let child:HTMLElement = target.firstChild as HTMLElement;
-      iconName = child.getAttribute('class') as string;
-    }
-    else if(target.tagName == 'I')
-    {
-      iconName = target.getAttribute('class') as string;
-    }
-    
-    this.IsSelectingIcon = false;*/
+    this.SearchIcon = child.getAttribute('class') as string;
+    this.IsSelectingIcon = false;
   }
 }
