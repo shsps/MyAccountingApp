@@ -45,6 +45,21 @@ export class DatabaseApiService
     })
   }
 
+  SearchExpense(icon:string, searchQuery:string):void
+  {
+    let url = '/api/expenses/search/';
+    url += icon == 'fa-solid fa-x' ? 'n': icon;
+    url += '/'
+    url += searchQuery == '' ? 'n': searchQuery;
+    console.log(url);
+
+    this.http.get<DatabaseResponse>(url).subscribe(data=>
+    {
+      this.ExpensesList = data.result as Expenses[];
+      this.UpdateTotalPrice();
+    });
+  }
+
   AddExpenses(expense:Expenses)
   {
     this.http.post('/api/expenses', expense).subscribe((response) =>

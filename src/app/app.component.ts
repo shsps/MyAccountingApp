@@ -21,7 +21,7 @@ import { AccountingPageComponent } from './accounting-page/accounting-page.compo
 export class AppComponent implements OnInit, AfterViewInit
 {
   IsShowAccountingPage:boolean = true;
-  IsShowSearchExpense:boolean = true;
+  IsShowSearchExpense:boolean = false;
   IsSelectingIcon:boolean = false;
 
   IconList:string[] = [
@@ -100,13 +100,41 @@ export class AppComponent implements OnInit, AfterViewInit
 
   SearchButtonClick()
   {
-    this.IsShowSearchExpense = true;
+    let searchQuery:JQuery<HTMLElement> = $('#SearchQuery>input');
+
+    if(!this.IsShowSearchExpense)
+    {
+      this.IsShowSearchExpense = true;
+      this.SearchIcon = this.IconList[0];
+      searchQuery.val('');
+      return;
+    }
+
+    if(this.SearchIcon == this.IconList[0] && searchQuery.val() == '')
+    {
+      searchQuery.val('請輸入文字或選擇圖案');
+      searchQuery.css('color', 'red');
+      return;
+    }
+    
+    //TODO:SearchIcon的fa-solid fa-pizza-slice不知道為什麼在傳送到伺服器會交換變成fa-pizza-slice fa-solid
+    this.databaseApi.SearchExpense(this.SearchIcon, searchQuery.val() as string);
   }
 
   SearchIconClick(event:MouseEvent)
   {
     this.IsSelectingIcon = true;
-    console.log((event.target as HTMLElement).id);
+  }
+
+  SearchQueryClick(event:MouseEvent)
+  {
+    let target = event.target as HTMLInputElement;
+
+    if(target.style.color == 'red')
+    {
+      target.style.color = 'black';
+      target.value = '';
+    }
   }
 
   IconSelect(event:MouseEvent)
