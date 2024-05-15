@@ -101,6 +101,7 @@ export class AppComponent implements OnInit, AfterViewInit
   SearchButtonClick()
   {
     let searchQuery:JQuery<HTMLElement> = $('#SearchQuery>input');
+    let query:string = searchQuery.val() as string;
 
     if(!this.IsShowSearchExpense)
     {
@@ -116,9 +117,30 @@ export class AppComponent implements OnInit, AfterViewInit
       searchQuery.css('color', 'red');
       return;
     }
-    
-    //TODO:SearchIcon的fa-solid fa-pizza-slice不知道為什麼在傳送到伺服器會交換變成fa-pizza-slice fa-solid
-    this.databaseApi.SearchExpense(this.SearchIcon, searchQuery.val() as string);
+    // else if(searchQuery.css('color') == 'red')
+    // {
+    //   searchQuery.val('');
+    //   searchQuery.css('color', 'black');
+    //   query = '';
+    // }
+
+    let regex = /(?<=fa-)(?!solid|brands)\S+/g; //Search icon name only
+    let match = this.SearchIcon.match(regex);
+
+    if(match != null)
+    {
+      this.databaseApi.SearchExpense(match[0], searchQuery.val() as string);
+      this.CloseSearchExpense();
+    }
+    else
+    {
+      throw new Error("Didn't find icon name");
+    }
+  }
+
+  CloseSearchExpense()
+  {
+    this.IsShowSearchExpense = false;
   }
 
   SearchIconClick(event:MouseEvent)
@@ -143,6 +165,14 @@ export class AppComponent implements OnInit, AfterViewInit
     let child:HTMLElement = target.firstChild as HTMLElement;
 
     this.SearchIcon = child.getAttribute('class') as string;
+    
+    let searchQueryInput = $('#SearchQuery>input');
+    if(searchQueryInput.css('color') == 'rgb(255, 0, 0)')
+    {
+      searchQueryInput.css('color', 'black');
+      searchQueryInput.val('');
+    }
+
     this.IsSelectingIcon = false;
   }
 }

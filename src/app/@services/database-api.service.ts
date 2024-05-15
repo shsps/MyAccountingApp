@@ -51,7 +51,6 @@ export class DatabaseApiService
     url += icon == 'fa-solid fa-x' ? 'n': icon;
     url += '/'
     url += searchQuery == '' ? 'n': searchQuery;
-    console.log(url);
 
     this.http.get<DatabaseResponse>(url).subscribe(data=>
     {

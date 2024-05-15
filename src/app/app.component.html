@@ -17,7 +17,7 @@
         <i [class]="SearchIcon"></i>
       </div>
 
-      <div id="iconMenu" *ngIf="IsSelectingIcon" (mouseleave)="IsSelectingIcon=false">
+      <div id="iconMenu" *ngIf="IsSelectingIcon">
         <div *ngFor="let item of IconList" 
         (click)="IconSelect($event)">
             <i [class]="item"></i>
