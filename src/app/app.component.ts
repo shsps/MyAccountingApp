@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AddExpensePageComponent } from './accounting-page/add-expense-page/add-expense-page.component';
 import { DatabaseApiService } from './@services/database-api.service';
 import { AccountingPageComponent } from './accounting-page/accounting-page.component';
+import { AnalyzePageComponent } from './analyze-page/analyze-page.component';
 
 @Component(
   {
@@ -12,7 +13,8 @@ import { AccountingPageComponent } from './accounting-page/accounting-page.compo
     imports: [RouterOutlet, 
               CommonModule, 
               AddExpensePageComponent,
-              AccountingPageComponent],
+              AccountingPageComponent,
+              AnalyzePageComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
   }
@@ -23,6 +25,7 @@ export class AppComponent implements OnInit, AfterViewInit
   IsShowAccountingPage:boolean = true;
   IsShowSearchExpense:boolean = false;
   IsSelectingIcon:boolean = false;
+  IsShowAnalyzePage:boolean = false;
 
   IconList:string[] = [
     'fa-solid fa-x',
@@ -174,5 +177,17 @@ export class AppComponent implements OnInit, AfterViewInit
     }
 
     this.IsSelectingIcon = false;
+  }
+
+  AccountingButtonClick()
+  {
+    this.IsShowAccountingPage = true;
+    this.IsShowAnalyzePage = false;
+  }
+
+  AnalyzeButtonClick()
+  {
+    this.IsShowAccountingPage = false;
+    this.IsShowAnalyzePage = true;
   }
 }

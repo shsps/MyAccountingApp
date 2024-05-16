@@ -8,8 +8,8 @@
     </div>
   </div>
   <div id="Div1_2">
-    <button class="Clickable" id="AccountingButton">記帳</button>
-    <button class="Clickable" id="AnalyzeButton">統計</button>
+    <button class="Clickable" id="AccountingButton" (click)="AccountingButtonClick()">記帳</button>
+    <button class="Clickable" id="AnalyzeButton" (click)="AnalyzeButtonClick()">統計</button>
     <!-- <button class="Clickable" id="SearchButton" (click)="SearchButtonClick()">查詢</button> -->
     <img class="Clickable" id="SearchButton" src="../assets/Magnifier.png" (click)="SearchButtonClick()">
     <div id="SearchArea" *ngIf="IsShowSearchExpense">
@@ -39,5 +39,6 @@
   </div>
   <div id="Div2_2">
     <app-accounting-page *ngIf="IsShowAccountingPage"></app-accounting-page>
+    <app-analyze-page *ngIf="IsShowAnalyzePage"></app-analyze-page>
   </div>
 </div>
