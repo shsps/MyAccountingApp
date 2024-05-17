@@ -1,6 +1,13 @@
 <div id="RootLayout">
     <div id="PieChart">
-        <canvas id="Ring"></canvas>
+        <canvas baseChart
+        [type]="'pie'"
+        [datasets]="pieChartDatasets"
+        [labels]="pieChartLabels"
+        [options]="pieChartOptions"
+        [plugins]="pieChartPlugins"
+        [legend]="pieChartLegend">
+        </canvas>
     </div>
 
     <div id="DataList">
