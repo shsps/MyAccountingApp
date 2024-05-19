@@ -75,4 +75,9 @@ export class AnalyzePageComponent implements OnInit
   } ];
   public pieChartLegend = false;
   public pieChartPlugins = [];
+
+  ButtonClick(ev:any)
+  {
+    console.log(ev);
+  }
 }

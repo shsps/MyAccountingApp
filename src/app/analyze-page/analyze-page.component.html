@@ -6,11 +6,12 @@
         [labels]="pieChartLabels"
         [options]="pieChartOptions"
         [plugins]="pieChartPlugins"
-        [legend]="pieChartLegend">
+        [legend]="pieChartLegend"
+        (chartClick)="ButtonClick($event)">
         </canvas>
     </div>
 
     <div id="DataList">
-
+        <button></button>
     </div>
 </div>
