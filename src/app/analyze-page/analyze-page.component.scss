@@ -10,7 +10,17 @@
     width: 50%;
     height: 100%;
     border-right: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+// #PieChart>canvas
+// {
+//     width: 300px;
+//     height: 300px;
+// }
+
 
 #Ring
 {
