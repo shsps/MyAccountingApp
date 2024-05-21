@@ -7,13 +7,22 @@
         [options]="pieChartOptions"
         [plugins]="pieChartPlugins"
         [legend]="pieChartLegend"
-        [width]="500"
-        [height]="500"
+        [width]="400"
+        [height]="400"
         (chartClick)="ButtonClick($event)">
         </canvas>
     </div>
 
     <div id="DataList">
-        <button></button>
+        <ul>
+            <li *ngFor="let item of sortExpenseList">
+                <span>{{item.date | date:'MM/dd'}}</span>
+                <i [(class)]="item.icon"></i>
+                <span>{{item.name}}</span>
+                <span>{{item.money}}</span>
+                <span>{{item.remark}}</span>
+                <!-- <span>{{item.id}}</span> -->
+            </li>
+        </ul>
     </div>
 </div>

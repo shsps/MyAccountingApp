@@ -7,7 +7,7 @@
 
 #PieChart
 {
-    width: 50%;
+    width: 40%;
     height: 100%;
     border-right: 1px solid black;
     display: flex;
@@ -15,21 +15,57 @@
     align-items: center;
 }
 
-// #PieChart>canvas
-// {
-//     width: 300px;
-//     height: 300px;
-// }
-
-
-#Ring
-{
-    width: 200px;
-    height: 200px;
-}
-
 #DataList
 {
-    width: 50%;
+    width: 60%;
     height: 100%;
+    overflow-y: auto;
 }
+
+#DataList>ul
+{
+    margin: 0;
+    padding: 0;
+}
+
+#DataList>ul>li
+{
+    display: flex;
+    list-style-type: none;
+}
+
+#DataList>ul>li>*
+{
+    text-align: center;
+    align-content: center;
+}
+
+#DataList>ul>li>*:nth-child(1)
+{
+    width: 18%;
+}
+
+#DataList>ul>li>*:nth-child(2)
+{
+    width: 7%;
+}
+
+#DataList>ul>li>*:nth-child(3)
+{
+    width: 30%;
+}
+
+#DataList>ul>li>*:nth-child(4)
+{
+    width: 15%;
+}
+
+#DataList>ul>li>*:nth-child(5)
+{
+    width: 30%;
+}
+
+// #DataList li:nth-child(odd)
+// {
+//     background-color: #fffd9d;
+// }
