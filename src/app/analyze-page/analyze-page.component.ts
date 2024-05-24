@@ -1,10 +1,10 @@
+import { Expenses } from './../@models/Expenses.model';
 import { DatabaseApiService } from './../@services/database-api.service';
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ChartOptions, Plugin } from 'chart.js';
 import { ChartEvent } from 'chart.js/dist/core/core.plugins';
 import { BaseChartDirective } from 'ng2-charts';
-import { Expenses } from '../@models/Expenses.model';
 import ChartDataLabels from 'chartjs-plugin-datalabels';//Plugin that show persentage in pie chart
 
 @Component({
