@@ -28,6 +28,19 @@ export class DatabaseApiService
     });
   }
 
+  SortExpenseList()
+  {
+    this.ExpensesList.sort((a, b) =>
+    {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      
+      if (dateA < dateB) return -1;
+      else if (dateA > dateB) return 1;
+      else return 0;
+    });
+  }
+
   GetExpenses(from?:string, to?:string): void
   {
     let url = '/api/expenses/'
@@ -75,16 +88,8 @@ export class DatabaseApiService
       {
         expense.id = String(getId);
         this.ExpensesList.push(expense);
-        this.ExpensesList.sort((a, b) =>
-        {
-          const dateA = new Date(a.date);
-          const dateB = new Date(b.date);
-          
-          if (dateA < dateB) return -1;
-          else if (dateA > dateB) return 1;
-          else return 0;
-        });
-
+        
+        this.SortExpenseList();
         this.UpdateTotalPrice();
       }
     });
@@ -117,5 +122,10 @@ export class DatabaseApiService
     findExpense.money = expense.money;
     findExpense.name = expense.name;
     findExpense.remark = expense.remark;
+
+    this.ExpensesList.sort
+
+    this.SortExpenseList();
+    this.UpdateTotalPrice();
   }
 }

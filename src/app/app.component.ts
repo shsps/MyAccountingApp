@@ -116,8 +116,9 @@ export class AppComponent implements OnInit, AfterViewInit
 
     if(this.SearchIcon == this.IconList[0] && searchQuery.val() == '')
     {
-      searchQuery.val('請輸入文字或選擇圖案');
-      searchQuery.css('color', 'red');
+      // searchQuery.val('請輸入文字或選擇圖案');
+      // searchQuery.css('color', 'red');
+      this.databaseApi.GetExpenses();
       return;
     }
     // else if(searchQuery.css('color') == 'red')
