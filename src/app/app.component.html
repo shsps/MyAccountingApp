@@ -36,6 +36,20 @@
     <input #dateFrom type="date" [max]="DateFromMax" (change)="SetDateMinAndMax()">
     <span>至</span>
     <input #dateTo type="date" [min]="DateToMin" (change)="SetDateMinAndMax()">
+    
+    <mat-form-field>
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="picker">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    
+    <!-- <mat-form-field>
+      <input matInput [matDatepicker]="myDataPicker">
+      <mat-datepicker-toggle [for]="myDataPicker" matSuffix></mat-datepicker-toggle>
+      <mat-datepicker #myDataPicker></mat-datepicker>
+    </mat-form-field> -->
   </div>
   <div id="Div2_2">
     <app-accounting-page *ngIf="IsShowAccountingPage"></app-accounting-page>
