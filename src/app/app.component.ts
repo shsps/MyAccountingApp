@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {FormGroup, FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @Component(
@@ -23,7 +24,8 @@ import {MatInputModule} from '@angular/material/input';
               AnalyzePageComponent,
               MatFormFieldModule, 
               MatDatepickerModule,
-              MatInputModule],
+              MatInputModule,
+              MatButtonModule],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
   }

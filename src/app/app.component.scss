@@ -3,67 +3,76 @@
     cursor: pointer;
 }
 
+#RootLayout
+{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 100px auto;
+    grid-template-areas: "Div1" "Div2";
+}
+
 #Div1
 {
+    grid-area: Div1;
     display: flex;
-    height: 20%;
     background-color: #fcfbe1;
 }
 
-#Div1_1
+#Div1
 {
+    position: absolute;
     display: flex; 
-    width: 25%; 
+    width: 100%; 
     align-content: center;
     justify-content: center;
 }
 
-#Div1_1_1
+#Div1_1
 {
-    width: 20%;
+    width: 100px;
     align-content: center;
 }
 
-#Div1_1_1>img
+#PageIcon
 {
-    width: 100%;
+    width: 50px;
 }
 
-#Div1_1_2
-{
-    width: 50%;
-    align-content: center;
-}
+// #Div1_1_2>p
+// {
+//     font-size:30px;
+//     overflow:visible;
+//     overflow-wrap: break-word;
+// }
 
-#Div1_1_2>p
-{
-    font-size:30px;
-    overflow:visible;
-    overflow-wrap: break-word;
-}
+// #Div1_2
+// {
+//     width: 100%; 
+//     display: flex;
+//     align-items: flex-end;
+//     justify-content: space-between;
+//     position: relative;
+// }
 
-#Div1_2
-{
-    width: 75%; 
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    position: relative;
-}
-
-#Div1_2>button
+#Div1>button
 {
     font-size: 30px;
 }
 
-#Div1_2>#SearchButton
+#Div1>#AccountingButton
+{
+    width: 50px;
+}
+
+#Div1>#SearchButton
 {
     height: 50px;
     margin-left: auto;
     margin-right: 10px;
 }
 
-#Div1_2>#SearchButton:hover
+#Div1>#SearchButton:hover
 {
     animation-name: Shake;
     animation-duration: 500ms;
@@ -173,41 +182,41 @@
 
 #Div2
 {
-    display: flex;
-    height: 80%;
+    grid-area: Div2;
     background-color: #fcfbe1;
 }
 
-#Div2_1
+#Div2>*
 {
-    width: 25%; 
+    width: 100%;
+    height: 100%;
 }
 
-#Div2_1>input:nth-child(1)
-{
-    margin: 30px 25%;
-    display: block;
-}
+// #Div2_1>input:nth-child(1)
+// {
+//     margin: 30px 25%;
+//     display: block;
+// }
 
-#Div2_1>span
-{
-    margin-left: 33%;
-    font-size: 50px;
-    display: inline-block;
-}
+// #Div2_1>span
+// {
+//     margin-left: 33%;
+//     font-size: 50px;
+//     display: inline-block;
+// }
 
-#Div2_1>input:nth-child(3)
-{
-    margin: 30px 25%;
-    display: block;
-}
+// #Div2_1>input:nth-child(3)
+// {
+//     margin: 30px 25%;
+//     display: block;
+// }
 
-#Div2_2
-{
-    width: 75%; 
-    font-size: 30px;
-    border: 1px solid #909090;
-}
+// #Div2_2
+// {
+//     width: 75%; 
+//     font-size: 30px;
+//     border: 1px solid #909090;
+// }
 
 // mat-form-field
 // {

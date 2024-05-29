@@ -1,16 +1,13 @@
-<div id="Div1">
-  <div id="Div1_1">
-    <div id="Div1_1_1">
-      <img src="../assets/R.png">
-    </div>
-    <div id="Div1_1_2">
-      <p>MyAccountingApp</p>
-    </div>
-  </div>
-  <div id="Div1_2">
+<div id="RootLayout">
+  <div id="Div1">
+    <img id="PageIcon" src="../assets/R.png">
+
     <button class="Clickable" id="AccountingButton" (click)="AccountingButtonClick()">記帳</button>
     <button class="Clickable" id="AnalyzeButton" (click)="AnalyzeButtonClick()">統計</button>
-    <!-- <button class="Clickable" id="SearchButton" (click)="SearchButtonClick()">查詢</button> -->
+    
+    <input id="DateFrom" #dateFrom type="date" [max]="DateFromMax" (change)="SetDateMinAndMax()">
+    <input id="DateTo" #dateTo type="date" [min]="DateToMin" (change)="SetDateMinAndMax()">
+    
     <img class="Clickable" id="SearchButton" src="../assets/Magnifier.png" (click)="SearchButtonClick()">
     <div id="SearchArea" *ngIf="IsShowSearchExpense">
       <div id="Icon" (click)="SearchIconClick($event)">
@@ -29,30 +26,22 @@
       </div>
     </div>
   </div>
-</div>
-
-<div id="Div2">
-  <div id="Div2_1">
-    <input #dateFrom type="date" [max]="DateFromMax" (change)="SetDateMinAndMax()">
-    <span>至</span>
-    <input #dateTo type="date" [min]="DateToMin" (change)="SetDateMinAndMax()">
-    
-    <mat-form-field>
-      <mat-label>Choose a date</mat-label>
-      <input matInput [matDatepicker]="picker">
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-    
-    <!-- <mat-form-field>
-      <input matInput [matDatepicker]="myDataPicker">
-      <mat-datepicker-toggle [for]="myDataPicker" matSuffix></mat-datepicker-toggle>
-      <mat-datepicker #myDataPicker></mat-datepicker>
-    </mat-form-field> -->
-  </div>
-  <div id="Div2_2">
+  
+  <div id="Div2">
     <app-accounting-page *ngIf="IsShowAccountingPage"></app-accounting-page>
     <app-analyze-page *ngIf="IsShowAnalyzePage"></app-analyze-page>
   </div>
 </div>
+
+
+<!-- <mat-form-field class="example-form-field">
+  <mat-label>First campaign</mat-label>
+  <mat-date-range-input
+    [rangePicker]="campaignOnePicker">
+    <input matStartDate placeholder="Start date" formControlName="start">
+    <input matEndDate placeholder="End date" formControlName="end">
+  </mat-date-range-input>
+  <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
+  <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
+</mat-form-field> -->
