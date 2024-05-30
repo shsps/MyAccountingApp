@@ -3,12 +3,22 @@
     cursor: pointer;
 }
 
+#Accounting_RootLayout
+{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 90% 10%;
+    grid-template-areas: "Accounting_Item1" "Accounting_Item2";
+}
+
 #PayListUL
 {
-    height: 90%;
+    // height: 90%;
     // max-height: calc((100% - 100px)*0.9);
     overflow-y:auto;
     position: relative;
+    grid-area: Accounting_Item1;
 }
 
 #PayListUL>ul
@@ -91,10 +101,11 @@
 
 #Total
 {
-    height: 10%;
+    // height: 10%;
     display: flex;
     align-items: center;
     background-color: #ffcb3b;
+    grid-area: Accounting_Item2;
 }
 
 #Total span:nth-child(1)

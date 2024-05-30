@@ -1,4 +1,5 @@
-<div id="PayListUL">
+<div id="Accounting_RootLayout">
+  <div id="PayListUL">
     <ul>
       <li *ngFor="let item of databaseApi.ExpensesList; index as i" id="list{{i}}">
         <i class="fa-regular fa-square" (click)="ListCheckClick($event)"></i>
@@ -21,10 +22,12 @@
     (mouseenter)="ButtonSrcChange($event, './assets/AddExpense_Press.png')"
     (mouseleave)="ButtonSrcChange($event, './assets/AddExpense.png')"
     (click)="AddExpenseClick()">
+  </div>
+  
+  <div id="Total">
+      <span></span>
+      <span>總額：</span>
+      <span>{{databaseApi.TotalPrice}}</span>
+  </div>
+</div>
 
-</div>
-<div id="Total">
-    <span></span>
-    <span>總額：</span>
-    <span>{{databaseApi.TotalPrice}}</span>
-</div>
