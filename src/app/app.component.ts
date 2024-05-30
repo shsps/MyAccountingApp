@@ -5,6 +5,13 @@ import { AddExpensePageComponent } from './accounting-page/add-expense-page/add-
 import { DatabaseApiService } from './@services/database-api.service';
 import { AccountingPageComponent } from './accounting-page/accounting-page.component';
 import { AnalyzePageComponent } from './analyze-page/analyze-page.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {FormGroup, FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+
 
 @Component(
   {
@@ -14,7 +21,11 @@ import { AnalyzePageComponent } from './analyze-page/analyze-page.component';
               CommonModule, 
               AddExpensePageComponent,
               AccountingPageComponent,
-              AnalyzePageComponent],
+              AnalyzePageComponent,
+              MatFormFieldModule, 
+              MatDatepickerModule,
+              MatInputModule,
+              MatButtonModule],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
   }
@@ -22,6 +33,7 @@ import { AnalyzePageComponent } from './analyze-page/analyze-page.component';
 
 export class AppComponent implements OnInit, AfterViewInit
 {
+
   IsShowAccountingPage:boolean = true;
   IsShowSearchExpense:boolean = false;
   IsSelectingIcon:boolean = false;
@@ -116,8 +128,9 @@ export class AppComponent implements OnInit, AfterViewInit
 
     if(this.SearchIcon == this.IconList[0] && searchQuery.val() == '')
     {
-      searchQuery.val('請輸入文字或選擇圖案');
-      searchQuery.css('color', 'red');
+      // searchQuery.val('請輸入文字或選擇圖案');
+      // searchQuery.css('color', 'red');
+      this.databaseApi.GetExpenses();
       return;
     }
     // else if(searchQuery.css('color') == 'red')
@@ -189,5 +202,10 @@ export class AppComponent implements OnInit, AfterViewInit
   {
     this.IsShowAccountingPage = false;
     this.IsShowAnalyzePage = true;
+  }
+
+  Test()
+  {
+    console.log('Input close');
   }
 }
