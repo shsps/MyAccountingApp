@@ -1,10 +1,10 @@
-#RootLayout
+#Add_Expense_RootLayout
 {
     position: absolute;
     width: auto;
     height: auto;
     right: 100px;
-    bottom: 8%;
+    bottom: 5px;
     z-index: 2;
 }
 
@@ -57,7 +57,7 @@
 #date>span:nth-child(2)
 {
     text-align: center;
-    font-size: 50px;
+    font-size: 35px;
 }
 
 #date>input
@@ -127,13 +127,6 @@
     // background-color: purple;
 }
 
-// #remark>input
-// {
-//     width: 100%;
-//     height: 100%;
-//     font-size: 40px;
-// }
-
 #remark>textarea
 {
     width: 100%;
@@ -187,12 +180,14 @@
 {
     position: absolute;
     width: 80px;
+    height: 80px;
     right: 10px;
-    bottom: 0;
+    bottom: 0px;
 }
 
 .Action img
 {
     width: 100%;
+    height: 100%;
 }
 

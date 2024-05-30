@@ -1,7 +1,13 @@
+.Clickable
+{
+    cursor: pointer;
+}
+
 #PayListUL
 {
     height: 90%;
-    overflow-y: auto;
+    overflow-y:auto;
+    position: relative;
 }
 
 #PayListUL>ul
@@ -71,7 +77,7 @@
     position: absolute;
     width: 80px;
     right: 110px;
-    bottom: calc(8% + 7.2px);
+    bottom: 5px;
 }
 
 #AddExpense
@@ -79,7 +85,7 @@
     position: absolute;
     width: 80px;
     right: 110px;
-    bottom: calc(8% + 7.2px);
+    bottom: 5px;
 }
 
 #Total
@@ -89,13 +95,6 @@
     align-items: center;
     background-color: #ffcb3b;
 }
-
-// #Total span
-// {
-//     position: relative;
-//     top: 25%;
-//     bottom: 25%;
-// }
 
 #Total span:nth-child(1)
 {

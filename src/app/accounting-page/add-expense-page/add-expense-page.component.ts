@@ -74,7 +74,7 @@ export class AddExpensePageComponent implements OnInit
   {
     this.IsShowExpense = true;
 
-    let div = $('#RootLayout');
+    let div = $('#Add_Expense_RootLayout');
     div.width('600px');
     div.height('500px');
 
@@ -88,7 +88,7 @@ export class AddExpensePageComponent implements OnInit
 
   ClosePage()
   {
-    let div = $('#RootLayout');
+    let div = $('#Add_Expense_RootLayout');
     div.width('auto');
     div.height('auto');
 

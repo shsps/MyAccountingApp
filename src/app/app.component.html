@@ -1,14 +1,13 @@
 <div id="RootLayout">
   <div id="Div1">
-    <img id="PageIcon" src="../assets/R.png">
+
+    <div id="PageIcon">
+      <img src="../assets/R.png">
+    </div>
 
     <button class="Clickable" id="AccountingButton" (click)="AccountingButtonClick()">記帳</button>
     <button class="Clickable" id="AnalyzeButton" (click)="AnalyzeButtonClick()">統計</button>
     
-    <input id="DateFrom" #dateFrom type="date" [max]="DateFromMax" (change)="SetDateMinAndMax()">
-    <input id="DateTo" #dateTo type="date" [min]="DateToMin" (change)="SetDateMinAndMax()">
-    
-    <img class="Clickable" id="SearchButton" src="../assets/Magnifier.png" (click)="SearchButtonClick()">
     <div id="SearchArea" *ngIf="IsShowSearchExpense">
       <div id="Icon" (click)="SearchIconClick($event)">
         <i [class]="SearchIcon"></i>
@@ -25,6 +24,11 @@
         <input type="text" placeholder="請輸入關鍵字" (click)="SearchQueryClick($event)">
       </div>
     </div>
+
+    <input id="DateFrom" #dateFrom type="date" [max]="DateFromMax" (change)="SetDateMinAndMax()">
+    <input id="DateTo" #dateTo type="date" [min]="DateToMin" (change)="SetDateMinAndMax()">
+    
+    <img class="Clickable" id="SearchButton" src="../assets/Magnifier.png" (click)="SearchButtonClick()">
   </div>
   
   <div id="Div2">

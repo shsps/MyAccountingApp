@@ -8,71 +8,80 @@
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-rows: 100px auto;
+    grid-template-rows: 100px 1fr;
     grid-template-areas: "Div1" "Div2";
 }
 
 #Div1
 {
     grid-area: Div1;
-    display: flex;
+    display: grid;
     background-color: #fcfbe1;
-}
-
-#Div1
-{
-    position: absolute;
-    display: flex; 
-    width: 100%; 
-    align-content: center;
-    justify-content: center;
-}
-
-#Div1_1
-{
-    width: 100px;
-    align-content: center;
+    grid-template-columns: 100px 100px 100px auto 510px 100px 100px 100px;
+    // grid-template-columns: auto;
+    grid-template-areas: "Div1_Item1 Div1_Item2 Div1_Item3 . Div1_Item4 Div1_Item5 Div1_Item6 Div1_Item7";
+    border-bottom: 1px solid black;
 }
 
 #PageIcon
 {
-    width: 50px;
+    grid-area: Div1_Item1;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-// #Div1_1_2>p
-// {
-//     font-size:30px;
-//     overflow:visible;
-//     overflow-wrap: break-word;
-// }
+#PageIcon>img
+{
+    width: 50%;
+}
 
-// #Div1_2
-// {
-//     width: 100%; 
-//     display: flex;
-//     align-items: flex-end;
-//     justify-content: space-between;
-//     position: relative;
-// }
+#AccountingButton
+{
+    grid-area: Div1_Item2;
+}
+
+#AnalyzeButton
+{
+    grid-area: Div1_Item3;
+}
+
+#SearchArea
+{
+    grid-area: Div1_Item4;
+}
+
+#DateFrom
+{
+    grid-area: Div1_Item5;
+
+}
+
+#DateTo
+{
+    grid-area: Div1_Item6;
+}
+
+#Div1>*:nth-child(n+2)
+{
+    height: 50px;
+    align-self: end;
+}
+
+#SearchButton
+{
+    grid-area: Div1_Item7;
+    justify-self: center;
+}
 
 #Div1>button
 {
     font-size: 30px;
+    width: 100px;
 }
 
-#Div1>#AccountingButton
-{
-    width: 50px;
-}
-
-#Div1>#SearchButton
-{
-    height: 50px;
-    margin-left: auto;
-    margin-right: 10px;
-}
-
-#Div1>#SearchButton:hover
+#SearchButton:hover
 {
     animation-name: Shake;
     animation-duration: 500ms;
@@ -94,11 +103,11 @@
 
 #SearchArea
 {
-    position: absolute;
+    // position: absolute;
     display: flex;
     height: 70px;
-    width: 600px;
-    right: 65px;
+    width: 500px;
+    // right: 65px;
     border: 1px solid #000000;
     background-color: #FFFFFF;
     border-radius: 5% / 50%;
@@ -183,11 +192,15 @@
 #Div2
 {
     grid-area: Div2;
+    width: 100%;
+    height: 100%;
+    // overflow-y: hidden;
     background-color: #fcfbe1;
 }
 
 #Div2>*
 {
+    display: block;
     width: 100%;
     height: 100%;
 }
