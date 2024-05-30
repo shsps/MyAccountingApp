@@ -14,6 +14,7 @@ export class DatabaseApiService
   public TotalPrice:number = 0;
   private DateFrom!:string;
   private DateTo!:string;
+  public url:string = 'http://benzhuhost.ddns.net:8080/api/expenses/';
 
 
   constructor(private http: HttpClient) {}
@@ -30,15 +31,16 @@ export class DatabaseApiService
 
   GetExpenses(from?:string, to?:string): void
   {
-    let url = '/api/expenses/'
+    let url2 = this.url.slice();
+
     if(from != undefined && to != undefined)
     {
-      url += `${from}/${to}`;//limit period if giving from and to
+      url2 += `${from}/${to}`;//limit period if giving from and to
       this.DateFrom = from;
       this.DateTo = to;
     }
 
-    this.http.get<DatabaseResponse>(url).subscribe(data=>
+    this.http.get<DatabaseResponse>(url2).subscribe(data=>
     {
       this.ExpensesList = data.result as Expenses[];
       this.UpdateTotalPrice();
@@ -47,12 +49,12 @@ export class DatabaseApiService
 
   SearchExpense(icon:string, searchQuery:string):void
   {
-    let url = '/api/expenses/search/';
-    url += icon == 'fa-solid fa-x' ? 'n': icon;
-    url += '/'
-    url += searchQuery == '' ? 'n': searchQuery;
+    let url2 = this.url.slice() + '/search/';
+    url2 += icon == 'fa-solid fa-x' ? 'n': icon;
+    url2 += '/'
+    url2 += searchQuery == '' ? 'n': searchQuery;
 
-    this.http.get<DatabaseResponse>(url).subscribe(data=>
+    this.http.get<DatabaseResponse>(url2).subscribe(data=>
     {
       this.ExpensesList = data.result as Expenses[];
       this.UpdateTotalPrice();
@@ -61,7 +63,7 @@ export class DatabaseApiService
 
   AddExpenses(expense:Expenses)
   {
-    this.http.post('/api/expenses', expense).subscribe((response) =>
+    this.http.post(this.url, expense).subscribe((response) =>
     {
       let res = response as ResponseData;
       
@@ -101,7 +103,7 @@ export class DatabaseApiService
 
     let ids = {ids:idList};
     let req = {body:ids}
-    this.http.delete('/api/expenses', req).subscribe();
+    this.http.delete(this.url, req).subscribe();
 
     this.ExpensesList = this.ExpensesList.filter((_,index) => !indexList.includes(index));
     this.UpdateTotalPrice();
@@ -109,7 +111,7 @@ export class DatabaseApiService
 
   EditExpense(expense:Expenses)
   {
-    this.http.put('/api/expenses', expense).subscribe();
+    this.http.put(this.url, expense).subscribe();
 
     let findExpense = this.ExpensesList.find((value) => value.id==expense.id) as Expenses;
     findExpense.date = expense.date;
