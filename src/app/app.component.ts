@@ -82,6 +82,8 @@ export class AppComponent implements OnInit, AfterViewInit
   
   ngAfterViewInit(): void 
   {
+    // this.databaseApi.GetExpenses('2024-05-01', '2024-05-31');
+    // return;
     //Set date to first and last day of this month
     let today = new Date();
     today.setMonth(today.getMonth(), 1);

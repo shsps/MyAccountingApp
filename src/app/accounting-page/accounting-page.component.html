@@ -12,22 +12,24 @@
       </li>
     </ul>
     <app-add-expense-page></app-add-expense-page>
-
-    <img class="Clickable" id="TrashCan" *ngIf="IsShowTrashCan" src="../assets/TrashCan.png" 
-    (mouseenter)="ButtonSrcChange($event, '../assets/TrashCan_Press.png')" 
-    (mouseleave)="ButtonSrcChange($event, '../assets/TrashCan.png')"
-    (click)="TrashCan_MouseClick()">
-
-    <img class="Clickable" id="AddExpense" *ngIf="IsShowAddExpense" src="../../assets/AddExpense.png" 
-    (mouseenter)="ButtonSrcChange($event, './assets/AddExpense_Press.png')"
-    (mouseleave)="ButtonSrcChange($event, './assets/AddExpense.png')"
-    (click)="AddExpenseClick()">
   </div>
   
   <div id="Total">
       <span></span>
       <span>總額：</span>
       <span>{{databaseApi.TotalPrice}}</span>
+  </div>
+
+  <div id="Accounting_Action">
+    <img class="Clickable Accounting_Icon" id="TrashCan" *ngIf="IsShowTrashCan" src="../assets/TrashCan.png" 
+    (mouseenter)="ButtonSrcChange($event, '../assets/TrashCan_Press.png')" 
+    (mouseleave)="ButtonSrcChange($event, '../assets/TrashCan.png')"
+    (click)="TrashCan_MouseClick()">
+
+    <img class="Clickable Accounting_Icon" id="AddExpense" *ngIf="IsShowAddExpense" src="../../assets/AddExpense.png" 
+    (mouseenter)="ButtonSrcChange($event, './assets/AddExpense_Press.png')"
+    (mouseleave)="ButtonSrcChange($event, './assets/AddExpense.png')"
+    (click)="AddExpenseClick()">
   </div>
 </div>
 

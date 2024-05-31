@@ -17,7 +17,7 @@
     // height: 90%;
     // max-height: calc((100% - 100px)*0.9);
     overflow-y:auto;
-    position: relative;
+    // position: relative;
     grid-area: Accounting_Item1;
 }
 
@@ -83,22 +83,6 @@
     background-color: #fffd9d;
 }
 
-#TrashCan
-{
-    position: absolute;
-    width: 80px;
-    right: 110px;
-    bottom: 5px;
-}
-
-#AddExpense
-{
-    position: absolute;
-    width: 80px;
-    right: 110px;
-    bottom: 5px;
-}
-
 #Total
 {
     // height: 10%;
@@ -123,3 +107,35 @@
     width: 10%;
     text-align: center;
 }
+
+#Accounting_Action
+{
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    right: 110px;
+    bottom: 10%;
+}
+
+.Accounting_Icon
+{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+// #TrashCan
+// {
+//     position: absolute;
+//     width: 80px;
+//     right: 110px;
+//     bottom: 5px;
+// }
+
+// #AddExpense
+// {
+//     position: absolute;
+//     width: 80px;
+//     right: 110px;
+//     bottom: 5px;
+// }
