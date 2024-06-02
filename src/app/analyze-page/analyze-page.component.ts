@@ -57,10 +57,13 @@ export class AnalyzePageComponent implements OnInit, AfterViewInit
 
   ngOnInit(): void 
   {
+    //Sort by icon
     this.sortExpenseList = this.databaseApi.ExpensesList.slice().sort((a,b)=>
     {
       if(a.icon < b.icon) return 1;
-      return -1;
+      if(a.icon > b.icon) return -1;
+
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
     });
 
     let regex = /(?<=fa-)(?!solid|brands)\S+/g; //Search icon name only

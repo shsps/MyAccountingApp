@@ -247,6 +247,7 @@ export class AddExpensePageComponent implements OnInit
     {
       iconName = target.getAttribute('class') as string;
     }
+    console.log(iconName);
     
     this.IconText = iconName;
     this.IsSelectingIcon = false;

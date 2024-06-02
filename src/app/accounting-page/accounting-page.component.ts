@@ -50,7 +50,7 @@ export class AccountingPageComponent
       this.SelectInexList = this.SelectInexList.filter( num => num != listIndex)
       if(listIndex % 2)
       {
-        li.style.backgroundColor = '#FFFFFF';
+        li.style.backgroundColor = '#fcfbe1';
       }
       else
       {
