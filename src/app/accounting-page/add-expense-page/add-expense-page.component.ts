@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, numberAttribute} from '@angular/core';
 import { DatabaseApiService } from '../../@services/database-api.service';
 import { Expenses } from '../../@models/Expenses.model';
 import { parseHostBindings } from '@angular/compiler';
@@ -17,12 +17,6 @@ export class AddExpensePageComponent implements OnInit
   IsShowExpense:boolean = false;
   IsShowAddButton:boolean = false;
   IsShowEditButton:boolean = false;
-
-  IconText:string = 'fa-solid fa-pizza-slice';
-  NameText:string = '';
-  PriceText:string = '';
-  RemarkText:string = '';
-  ExpenseId:string = '';
 
   IconList:string[] = [
     'fa-solid fa-pizza-slice',
@@ -51,6 +45,14 @@ export class AddExpensePageComponent implements OnInit
     'fa-solid fa-cookie',
     'fa-solid fa-computer'
   ];
+
+  IconText:string = this.IconList[0];
+  NameText:string = '';
+  PriceText:string = '';
+  RemarkText:string = '';
+  ExpenseId:string = '';
+
+  
   IsSelectingIcon:boolean = false;
 
   constructor(private databaseApi:DatabaseApiService) {}
@@ -79,7 +81,7 @@ export class AddExpensePageComponent implements OnInit
     div.height('500px');
 
     this.dateNow = new Date();
-    this.IconText = 'fa-solid fa-pizza-slice';
+    this.IconText = this.IconList[0];
     this.NameText = '';
     this.PriceText = '';
     this.RemarkText = '';
@@ -236,20 +238,22 @@ export class AddExpensePageComponent implements OnInit
   IconSelect(event:MouseEvent)
   {
     let target:HTMLElement = event.target as HTMLElement;
-    let iconName:string = 'None';
+    /*FontAwesome exchange the position of every icon name, 
+    like fa-solid fa-pizza-slice to fa-pizza-slice fa-solid.
+    So i need to get index rather then class name.*/
+    let iconId:number = 0;
 
     if(target.tagName == 'DIV')
     {
       let child:HTMLElement = target.firstChild as HTMLElement;
-      iconName = child.getAttribute('class') as string;
+      iconId = parseInt(child.getAttribute('custom_id') as string);
     }
     else if(target.tagName == 'I')
     {
-      iconName = target.getAttribute('class') as string;
+      iconId = parseInt(target.getAttribute('custom_id') as string);
     }
-    console.log(iconName);
     
-    this.IconText = iconName;
+    this.IconText = this.IconList[iconId];
     this.IsSelectingIcon = false;
   }
 }

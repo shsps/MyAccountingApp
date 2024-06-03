@@ -57,7 +57,6 @@ export class DatabaseApiService
     {
       this.ExpensesList = data.result as Expenses[];
       this.UpdateTotalPrice();
-      console.log(this.ExpensesList);
     })
   }
 

@@ -29,11 +29,11 @@
         </div>
     </div>
     <div id="iconMenu" *ngIf="IsSelectingIcon">
-        <div *ngFor="let item of IconList" 
+        <div *ngFor="let item of IconList; index as i" 
         (mouseenter)="IconMouseEnter($event)" 
         (mouseleave)="IconMouseLeave($event)" 
         (click)="IconSelect($event)">
-            <i class="{{item}}"></i>
+            <i class="{{item}}" [attr.custom_id]="i"></i>
         </div>
     </div>
     <div class="Action" id="AddExpense" *ngIf="IsShowAddButton">
