@@ -17,9 +17,9 @@
     grid-area: Div1;
     display: grid;
     background-color: #fcfbe1;
-    grid-template-columns: 100px 100px 100px auto 510px 100px 100px 100px;
+    grid-template-columns: 100px 100px 100px auto 510px 100px;
     // grid-template-columns: auto;
-    grid-template-areas: "Div1_Item1 Div1_Item2 Div1_Item3 . Div1_Item4 Div1_Item5 Div1_Item6 Div1_Item7";
+    grid-template-areas: "Div1_Item1 Div1_Item2 Div1_Item3 . Div1_Item4 Div1_Item7";
     border-bottom: 1px solid black;
 }
 
@@ -47,6 +47,57 @@
     grid-area: Div1_Item3;
 }
 
+#DateSelector
+{
+    width: 150px;
+    border: 1px solid #000000;
+    display: grid;
+    grid-row: 100%;
+    position: relative;
+    justify-self: center;
+    // justify-content:space-around;
+    // align-items: center;
+    font-size: 25px;
+}
+
+#DateSelector>*:nth-child(1)
+{
+    grid-area: 1/1/2/2;
+}
+
+#DateSelector>*:nth-child(2)
+{
+    grid-area: 1/2/2/3;
+}
+
+#DateSelector>input
+{
+    // display: none;
+    grid-area: 1/2/2/3;
+}
+
+#DateSelector>mat-datepicker
+{
+    // display: none;
+    grid-area: 1/2/2/3;
+}
+
+#DateSelector>*:nth-child(5)
+{
+    grid-area: 1/3/2/4;
+}
+
+// #DateSelector>input
+// {
+//     position: absolute;
+//     width: 0px;
+//     height: 0px;
+//     left: 0;
+//     right: 0;
+//     z-index: -1;
+//     // visibility: hidden;
+// }
+
 #SearchArea
 {
     grid-area: Div1_Item4;
@@ -55,12 +106,13 @@
 #DateFrom
 {
     grid-area: Div1_Item5;
-
+    display: none;
 }
 
 #DateTo
 {
     grid-area: Div1_Item6;
+    display: none;
 }
 
 #Div1>*:nth-child(n+2)

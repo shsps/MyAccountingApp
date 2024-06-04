@@ -8,6 +8,16 @@
     <button class="Clickable" id="AccountingButton" (click)="AccountingButtonClick()">記帳</button>
     <button class="Clickable" id="AnalyzeButton" (click)="AnalyzeButtonClick()">統計</button>
     
+    <div id="DateSelector">
+      <i class="fa-solid fa-chevron-left Clickable"></i>
+      <span>6月</span>
+      <input matInput [matDatepicker]="picker">
+      <mat-datepicker #picker></mat-datepicker>
+      <i class="fa-solid fa-chevron-right Clickable"></i>
+      <!-- <mat-form-field>
+      </mat-form-field> -->
+    </div>
+
     <div id="SearchArea" *ngIf="IsShowSearchExpense">
       <div id="Icon" (click)="SearchIconClick($event)">
         <i [class]="SearchIcon"></i>
