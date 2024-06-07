@@ -5,13 +5,15 @@ import { AddExpensePageComponent } from './accounting-page/add-expense-page/add-
 import { DatabaseApiService } from './@services/database-api.service';
 import { AccountingPageComponent } from './accounting-page/accounting-page.component';
 import { AnalyzePageComponent } from './analyze-page/analyze-page.component';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatDatepicker, MatDatepickerModule} from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {FormGroup, FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { MatNativeDateModule } from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
+import * as moment from 'moment';
+import { Moment } from 'moment';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 @Component(
   {
@@ -25,7 +27,10 @@ import { MatButtonModule } from '@angular/material/button';
               MatFormFieldModule, 
               MatDatepickerModule,
               MatInputModule,
-              MatButtonModule],
+              MatButtonModule,
+              FormsModule,
+              ReactiveFormsModule,
+              MatMomentDateModule],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
   }
@@ -71,9 +76,10 @@ export class AppComponent implements OnInit, AfterViewInit
 
   constructor(public databaseApi:DatabaseApiService) {}
 
-  @ViewChild('dateFrom') dateFrom!:ElementRef<HTMLInputElement>;
+  DateNow!:Date;
+  // @ViewChild('dateFrom') dateFrom!:ElementRef<HTMLInputElement>;
   DateFromMax!:string;
-  @ViewChild('dateTo') dateTo!:ElementRef<HTMLInputElement>;
+  // @ViewChild('dateTo') dateTo!:ElementRef<HTMLInputElement>;
   DateToMin!:string;
 
   SelectInexList:number[] = [];
@@ -82,24 +88,18 @@ export class AppComponent implements OnInit, AfterViewInit
   
   ngAfterViewInit(): void 
   {
-    // this.databaseApi.GetExpenses('2024-05-01', '2024-05-31');
-    // return;
+    
+  }
+  
+  ngOnInit(): void 
+  {
     //Set date to first and last day of this month
-    let today = new Date();
-    today.setMonth(today.getMonth(), 1);
-    this.dateFrom.nativeElement.valueAsDate = today;
-
-    today.setMonth(today.getMonth() + 1, 0);
-    this.dateTo.nativeElement.valueAsDate = today;
+    this.DateNow = new Date();
 
     setTimeout(()=>
     {
       this.SetDateMinAndMax();
     }, 500);
-  }
-  
-  ngOnInit(): void 
-  {
   }
 
   ButtonSrcChange(event:MouseEvent, src:string)
@@ -109,10 +109,16 @@ export class AppComponent implements OnInit, AfterViewInit
 
   SetDateMinAndMax()
   {
-    this.DateFromMax = this.dateTo.nativeElement.value as string;
-    this.DateToMin = this.dateFrom.nativeElement.value as string;
+    let today = new Date(`${this.DateNow.getFullYear()}-${this.DateNow.getMonth()+1}-${this.DateNow.getDate()}`);
+    
+    today.setMonth(today.getMonth(), 1);
+    this.DateFromMax = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
 
-    this.databaseApi.GetExpenses(this.dateFrom.nativeElement.value, this.dateTo.nativeElement.value);
+    today.setMonth(today.getMonth() + 1, 0);
+    this.DateToMin = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
+
+    this.databaseApi.GetExpenses(this.DateFromMax, 
+                                 this.DateToMin);
   }
 
   SearchButtonClick()
@@ -206,8 +212,16 @@ export class AppComponent implements OnInit, AfterViewInit
     this.IsShowAnalyzePage = true;
   }
 
-  Test()
+  ChangeMonth(IsPositive:Boolean)
   {
-    console.log('Input close');
+    let dateNew = new Date(this.DateNow);
+    dateNew.setMonth(dateNew.getMonth() + (IsPositive?1:-1));
+    this.DateNow = dateNew;
+  }
+
+  Test(event: Moment, datepicker: any)
+  {
+    this.DateNow = event.toDate();
+    datepicker.close();
   }
 }
