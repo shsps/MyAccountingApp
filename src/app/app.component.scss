@@ -72,11 +72,13 @@
 
 #DateSelector>input
 {
+    position: absolute;
     // display: none;
-    z-index: -1;
-    width: 1px;
-    height: 1px;
-    grid-area: 1/2/2/3;
+    // z-index: -1;
+    width: 100px;
+    height: 30px;
+    left: 200px;
+    // grid-area: 1/2/2/3;
 }
 
 #DateSelector>mat-datepicker

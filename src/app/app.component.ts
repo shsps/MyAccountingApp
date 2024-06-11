@@ -14,6 +14,7 @@ import * as moment from 'moment';
 import { Moment } from 'moment';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { DateAdapter } from '@angular/material/core';
 
 @Component(
   {
@@ -76,11 +77,32 @@ export class AppComponent implements OnInit, AfterViewInit
 
   constructor(public databaseApi:DatabaseApiService) {}
 
-  DateNow!:Date;
+  private _dateNow:Date = new Date();
+  // DateNow!:Date;
+  get DateNow():Date
+  {
+    return this._dateNow;
+  }
+
+  set DateNow(value:Date)
+  {
+    this._dateNow = value;
+    let dateNew = new Date(value);
+
+    this.DateFromMax = `${dateNew.getFullYear()}-${dateNew.getMonth()+1}-${dateNew.getDate()}`;
+    dateNew.setMonth(dateNew.getMonth() + 1, 0);
+    this.DateToMin = `${dateNew.getFullYear()}-${dateNew.getMonth()+1}-${dateNew.getDate()}`;
+
+    this.databaseApi.GetExpenses(this.DateFromMax, 
+      this.DateToMin);
+  }
+
   // @ViewChild('dateFrom') dateFrom!:ElementRef<HTMLInputElement>;
   DateFromMax!:string;
   // @ViewChild('dateTo') dateTo!:ElementRef<HTMLInputElement>;
   DateToMin!:string;
+
+  DateForm = new FormControl(new Date());
 
   SelectInexList:number[] = [];
   @ViewChild(AddExpensePageComponent) addExpensePage!:AddExpensePageComponent;
@@ -95,6 +117,7 @@ export class AppComponent implements OnInit, AfterViewInit
   {
     //Set date to first and last day of this month
     this.DateNow = new Date();
+    this.DateNow.setMonth(this.DateNow.getMonth(), 1);
 
     setTimeout(()=>
     {
@@ -117,8 +140,24 @@ export class AppComponent implements OnInit, AfterViewInit
     today.setMonth(today.getMonth() + 1, 0);
     this.DateToMin = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
 
+    console.log(this.DateFromMax, this.DateToMin);
+
     this.databaseApi.GetExpenses(this.DateFromMax, 
                                  this.DateToMin);
+  }
+
+  ChangeMonthArrow(isPositive:Boolean)
+  {
+    this.DateNow.setMonth((this.DateNow.getMonth() + (isPositive?1:-1)), 1);
+    this.DateNow = new Date(this.DateNow);
+  }
+
+  SelectMonth(event: Moment, datepicker: any)
+  {
+    this.DateNow = event.toDate();
+    this.DateForm.setValue(this.DateNow);
+    console.log(this.DateNow);
+    datepicker.close();
   }
 
   SearchButtonClick()
@@ -212,12 +251,7 @@ export class AppComponent implements OnInit, AfterViewInit
     this.IsShowAnalyzePage = true;
   }
 
-  ChangeMonth(IsPositive:Boolean)
-  {
-    let dateNew = new Date(this.DateNow);
-    dateNew.setMonth(dateNew.getMonth() + (IsPositive?1:-1));
-    this.DateNow = dateNew;
-  }
+  
 
   Test(event: Moment, datepicker: any)
   {

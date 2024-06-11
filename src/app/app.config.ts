@@ -6,6 +6,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
+import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 
 export const TW_FORMATS = 
 {
@@ -25,7 +26,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(), 
     provideCharts(withDefaultRegisterables()), 
     provideAnimationsAsync(),
-    provideNativeDateAdapter(),
+    provideMomentDateAdapter(),
     {provide:MAT_DATE_LOCALE, useValue:'zh-TW'},
     {provide:MAT_DATE_FORMATS, useValue:TW_FORMATS}]
 };

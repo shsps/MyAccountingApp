@@ -9,11 +9,11 @@
     <button class="Clickable" id="AnalyzeButton" (click)="AnalyzeButtonClick()">統計</button>
     
     <div id="DateSelector">
-      <i class="fa-solid fa-chevron-left Clickable" (click)="ChangeMonth(false)"></i>
-      <input matInput [matDatepicker]="picker">
-      <mat-datepicker #picker (monthSelected)="Test($event, picker)" [startView]="'year'"></mat-datepicker>
+      <i class="fa-solid fa-chevron-left Clickable" (click)="ChangeMonthArrow(false)"></i>
+      <input matInput [matDatepicker]="picker" [value]="DateForm.value">
+      <mat-datepicker #picker (monthSelected)="SelectMonth($event, picker)" [startView]="'year'"></mat-datepicker>
       <span class="Clickable" (click)="picker.open()">{{DateNow | date:'M'}}月</span>
-      <i class="fa-solid fa-chevron-right Clickable" (click)="ChangeMonth(true)"></i>
+      <i class="fa-solid fa-chevron-right Clickable" (click)="ChangeMonthArrow(true)"></i>
       <!-- <mat-form-field>
       </mat-form-field> -->
     </div>
