@@ -15,6 +15,7 @@ import { Moment } from 'moment';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { DateAdapter } from '@angular/material/core';
+import { SearchAreaToolComponent } from './search-area-tool/search-area-tool.component';
 
 @Component(
   {
@@ -25,6 +26,7 @@ import { DateAdapter } from '@angular/material/core';
               AddExpensePageComponent,
               AccountingPageComponent,
               AnalyzePageComponent,
+              SearchAreaToolComponent,
               MatFormFieldModule, 
               MatDatepickerModule,
               MatInputModule,
@@ -44,6 +46,7 @@ export class AppComponent implements OnInit, AfterViewInit
   IsShowSearchExpense:boolean = false;
   IsSelectingIcon:boolean = false;
   IsShowAnalyzePage:boolean = false;
+  IsShowToolPage:boolean = false;
 
   IconList:string[] = [
     'fa-solid fa-x',
@@ -140,8 +143,6 @@ export class AppComponent implements OnInit, AfterViewInit
     today.setMonth(today.getMonth() + 1, 0);
     this.DateToMin = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
 
-    console.log(this.DateFromMax, this.DateToMin);
-
     this.databaseApi.GetExpenses(this.DateFromMax, 
                                  this.DateToMin);
   }
@@ -156,7 +157,6 @@ export class AppComponent implements OnInit, AfterViewInit
   {
     this.DateNow = event.toDate();
     this.DateForm.setValue(this.DateNow);
-    console.log(this.DateNow);
     datepicker.close();
   }
 

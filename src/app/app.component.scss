@@ -19,8 +19,9 @@
     background-color: #fcfbe1;
     grid-template-columns: 100px 100px 100px auto 510px 100px;
     // grid-template-columns: auto;
-    grid-template-areas: "Div1_Item1 Div1_Item2 Div1_Item3 . Div1_Item4 Div1_Item7";
+    grid-template-areas: "Div1_Item1 Div1_Item2 Div1_Item3 Div1_Item4 Div1_Item5 Div1_Item6";
     border-bottom: 1px solid black;
+    z-index: 1;
 }
 
 #PageIcon
@@ -49,6 +50,7 @@
 
 #DateSelector
 {
+    grid-area: Div1_Item4;
     width: 150px;
     border: 1px solid #000000;
     display: grid;
@@ -72,13 +74,11 @@
 
 #DateSelector>input
 {
-    position: absolute;
     // display: none;
-    // z-index: -1;
-    width: 100px;
-    height: 30px;
-    left: 200px;
-    // grid-area: 1/2/2/3;
+    z-index: -1;
+    width: 1px;
+    height: 1px;
+    grid-area: 1/2/2/3;
 }
 
 #DateSelector>mat-datepicker
@@ -92,34 +92,6 @@
     grid-area: 1/3/2/4;
 }
 
-// #DateSelector>input
-// {
-//     position: absolute;
-//     width: 0px;
-//     height: 0px;
-//     left: 0;
-//     right: 0;
-//     z-index: -1;
-//     // visibility: hidden;
-// }
-
-#SearchArea
-{
-    grid-area: Div1_Item4;
-}
-
-#DateFrom
-{
-    grid-area: Div1_Item5;
-    display: none;
-}
-
-#DateTo
-{
-    grid-area: Div1_Item6;
-    display: none;
-}
-
 #Div1>*:nth-child(n+2)
 {
     height: 50px;
@@ -127,9 +99,132 @@
     align-self: end;
 }
 
+#SearchArea
+{
+    grid-area: Div1_Item5;
+    height: 70px;
+    width: auto;
+    border: 1px solid #000000;
+    background-color: #FFFFFF;
+    border-radius: 5% / 50%;
+    padding-left: 20px;
+    padding-right: 30px;
+    display: grid;
+    grid-template-columns: 70px auto;
+    grid-template-rows: 100% auto;
+    // overflow-y: visible;
+}
+
+#SearchArea_Tool
+{
+    grid-area: 1/1/2/2;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+#SearchArea_ToolPage
+{
+    grid-area: 2/1/3/3;
+    height: 400px;
+    background-color: white;
+    border: 2px solid #cbcbcb;
+    overflow-y: auto;
+}
+
+#SearchArea_Tool:hover
+{
+    background-color: #cbcbcb;
+}
+
+#SearchArea_Tool>i
+{
+    font-size: 30px;
+}
+
+#SearchArea>#Icon
+{
+    grid-area: 1/1/2/2;
+    display: flex;
+    border-right: 1px solid #000000;
+    margin-left: 20px;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+#SearchArea>#Icon:hover
+{
+    background-color: #cbcbcb;
+    cursor: pointer;
+}
+
+#SearchArea>#Icon>i
+{
+    font-size: 40px;
+}
+
+#SearchArea>#iconMenu
+{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 60%;
+    height: 140px;
+    background-color: white;
+    border: 2px solid black;
+    overflow-y: scroll;
+    // display: flex;
+    // flex-wrap: wrap;
+}
+
+#SearchArea>#iconMenu>div
+{
+    width: 20%;
+    height: 20%;
+    justify-content: center;
+    align-content: center;
+    padding: 5% 2.5%;
+    background-color: white;
+    display: inline-block;
+}
+
+#SearchArea>#iconMenu>div:hover
+{
+    background-color: gray;
+}
+
+#SearchArea>#iconMenu>div>i
+{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 200%;
+}
+
+#SearchArea>#DateRange
+{
+    grid-area: 1/2/2/3;
+    border: 1px solid black;
+}
+
+#SearchArea>#SearchQuery
+{
+    grid-area: 1/2/2/3;
+}
+
+#SearchQuery>input
+{
+    width: 100%;
+    height: 97%;
+    border: 0;
+    font-size: 30px;
+    text-wrap: nowrap;
+}
+
 #SearchButton
 {
-    grid-area: Div1_Item7;
+    grid-area: Div1_Item6;
     justify-self: center;
 }
 
@@ -157,94 +252,6 @@
         transform: rotate(0deg);
     }
 
-}
-
-#SearchArea
-{
-    // position: absolute;
-    display: flex;
-    height: 70px;
-    width: 500px;
-    // right: 65px;
-    border: 1px solid #000000;
-    background-color: #FFFFFF;
-    border-radius: 5% / 50%;
-}
-
-#SearchArea>#Icon
-{
-    display: flex;
-    height: 100%;
-    width: 20%;
-    border-right: 1px solid #000000;
-    margin-left: 5%;
-    justify-content: center;
-    align-content: center;
-    flex-wrap: wrap;
-}
-
-#SearchArea>#Icon:hover
-{
-    background-color: #cbcbcb;
-    cursor: pointer;
-}
-
-#Icon>i
-{
-    font-size: 40px;
-}
-
-#iconMenu
-{
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 60%;
-    height: 140px;
-    background-color: white;
-    border: 2px solid black;
-    overflow-y: scroll;
-    // display: flex;
-    // flex-wrap: wrap;
-}
-
-#iconMenu>div
-{
-    width: 20%;
-    height: 20%;
-    justify-content: center;
-    align-content: center;
-    padding: 5% 2.5%;
-    background-color: white;
-    display: inline-block;
-}
-
-#iconMenu>div:hover
-{
-    background-color: gray;
-}
-
-#iconMenu>div>i
-{
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    font-size: 200%;
-}
-
-#SearchArea>#SearchQuery
-{
-    height: 100%;
-    width: 70%;
-}
-
-#SearchQuery>input
-{
-    width: 100%;
-    height: 97%;
-    border: 0;
-    font-size: 30px;
-    text-wrap: nowrap;
 }
 
 #Div2
@@ -294,3 +301,25 @@
 //     background-color: white;
 //     margin: 0 8px 16px 0;
 // }
+
+#Test
+{
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    height: 300px;
+    width: 300px;
+    border: 1px solid black;
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+#Test>span
+{
+    white-space: nowrap; /* 防止文本换行 */
+    display: inline-block;
+    font-size: 1rem; /* 初始字体大小 */
+
+}

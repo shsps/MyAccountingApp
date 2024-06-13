@@ -1,0 +1,36 @@
+#IconSelector_Root
+{
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border: 2px solid black;
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#IconSelector_Root>div
+{
+    width: 50px;
+    height: 50px;
+    justify-content: center;
+    align-content: center;
+    padding: 10px;
+    background-color: white;
+    display: inline-block;
+}
+
+#IconSelector_Root>div:hover
+{
+    background-color: gray;
+}
+
+#IconSelector_Root>div>i
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}

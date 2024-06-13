@@ -1,0 +1,27 @@
+<div id="SearchArea_ToolPage_Root">
+    <div class="SearchArea_ToolPage_ItemLayout" id="SearchArea_ToolPage_Icon">
+        <span class="SearchArea_ToolPage_Item1">分類：</span>
+        <div class="SearchArea_ToolPage_Item2" (click)="IsSelectingIcon = true">
+            <i [class]="iconListService.IconList[SelectIndex]"></i>
+        </div>
+        <app-icon-selector *ngIf="IsSelectingIcon" (SelectIndex)="OnSelectIcon($event)"></app-icon-selector>
+    </div>
+
+    <div class="SearchArea_ToolPage_ItemLayout" id="SearchArea_ToolPage_Date">
+        <span class="SearchArea_ToolPage_Item1">日期區間：</span>
+        <div class="SearchArea_ToolPage_Item2">
+            <mat-form-field>
+                <mat-date-range-input [rangePicker]="picker">
+                  <input matStartDate placeholder="Start date">
+                  <input matEndDate placeholder="End date">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="SearchArea_ToolPage_ItemLayout" id="SearchArea_ToolPage_Search">
+        <button mat-flat-button class="SearchArea_ToolPage_Item2" color="primary">搜尋</button>
+    </div>
+</div>
