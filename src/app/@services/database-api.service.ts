@@ -60,7 +60,7 @@ export class DatabaseApiService
     })
   }
 
-  SearchExpense(icon:string, searchQuery:string):void
+  SearchExpense(icon?:string, dateFrom?:Date, dateTo?:Date, searchQuery?:string):void
   {
     let url2 = this.url.slice() + '/search/';
     url2 += icon == 'fa-solid fa-x' ? 'n': icon;

@@ -192,7 +192,7 @@ export class AppComponent implements OnInit, AfterViewInit
 
     if(match != null)
     {
-      this.databaseApi.SearchExpense(match[0], searchQuery.val() as string);
+      this.databaseApi.SearchExpense(match[0], undefined, undefined, (searchQuery.val() as string));
       this.CloseSearchExpense();
     }
     else

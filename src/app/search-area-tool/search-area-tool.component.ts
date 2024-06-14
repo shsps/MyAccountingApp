@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, FormControl, ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -32,11 +32,11 @@ export const MY_FORMATS = {
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatDatepickerModule,
     MatInputModule,
-    FormsModule,
-    ReactiveFormsModule,
     MatButtonModule,
     IconSelectorComponent
   ],
@@ -47,17 +47,27 @@ export const MY_FORMATS = {
   styleUrl: './search-area-tool.component.scss'
 })
 
-export class SearchAreaToolComponent {
-  date = new FormControl(moment());
+export class SearchAreaToolComponent 
+{
+  readonly DateRange = new FormGroup
+  ({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null)
+  });
 
   SelectIndex:number = 0;
   IsSelectingIcon:boolean = false;
 
-  constructor(public iconListService:IconListService){}
+  constructor(public iconListService:IconListService) {}
 
   OnSelectIcon(iconIndex:number)
   {
     this.SelectIndex = iconIndex;
     this.IsSelectingIcon = false;
+  }
+
+  OnSearchToolButtonClick()
+  {
+    
   }
 }
