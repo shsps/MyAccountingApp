@@ -1,19 +1,16 @@
-import { Component } from '@angular/core';
-import { FormsModule, FormControl, ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormsModule, FormControl, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-// import * as _moment from 'moment';
 import moment from 'moment';
 import { IconSelectorComponent } from '../icon-selector/icon-selector.component';
 import { CommonModule } from '@angular/common';
-import { IconListService } from '../@services/IconList.service';
-// tslint:disable-next-line:no-duplicate-imports
-// import {default as _rollupMoment} from 'moment';
-
-// const moment = _rollupMoment || _moment;
+import { IconListApiService } from '../@services/IconList-api.service';
+import { DatabaseApiService } from '../@services/database-api.service';
+import { SearchRequest } from '../@models/HttpRequest.model';
 
 export const MY_FORMATS = {
   parse: {
@@ -47,7 +44,7 @@ export const MY_FORMATS = {
   styleUrl: './search-area-tool.component.scss'
 })
 
-export class SearchAreaToolComponent 
+export class SearchAreaToolComponent
 {
   readonly DateRange = new FormGroup
   ({
@@ -58,8 +55,10 @@ export class SearchAreaToolComponent
   SelectIndex:number = 0;
   IsSelectingIcon:boolean = false;
 
-  constructor(public iconListService:IconListService) {}
+  constructor(public iconListApi:IconListApiService, private databaseApi:DatabaseApiService) {}
 
+  @Output() OnSearchButtonClick = new EventEmitter();
+  
   OnSelectIcon(iconIndex:number)
   {
     this.SelectIndex = iconIndex;
@@ -68,6 +67,15 @@ export class SearchAreaToolComponent
 
   OnSearchToolButtonClick()
   {
+    let q:SearchRequest =
+    {
+      icon:this.iconListApi.IconList[this.SelectIndex],
+      dateFrom:this.DateRange.value.start?moment(this.DateRange.value.start).format('YYYY-M-D'):null,
+      dateTo:this.DateRange.value.end?moment(this.DateRange.value.end).format('YYYY-M-D'):null
+    }
     
+    this.databaseApi.SearchExpense(q);
+
+    this.OnSearchButtonClick.emit();
   }
 }

@@ -10,12 +10,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
-import * as moment from 'moment';
+import moment from 'moment';
 import { Moment } from 'moment';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { DateAdapter } from '@angular/material/core';
 import { SearchAreaToolComponent } from './search-area-tool/search-area-tool.component';
+import { SearchRequest } from './@models/HttpRequest.model';
+import { IconListApiService } from './@services/IconList-api.service';
 
 @Component(
   {
@@ -48,40 +50,9 @@ export class AppComponent implements OnInit, AfterViewInit
   IsShowAnalyzePage:boolean = false;
   IsShowToolPage:boolean = false;
 
-  IconList:string[] = [
-    'fa-solid fa-x',
-    'fa-solid fa-pizza-slice',
-    'fa-solid fa-mug-hot',
-    'fa-solid fa-fish',
-    'fa-solid fa-shirt',
-    'fa-solid fa-bag-shopping',
-    'fa-solid fa-car-side',
-    'fa-solid fa-pencil',
-    'fa-solid fa-store',
-    'fa-solid fa-wallet',
-    'fa-brands fa-cc-visa',
-    'fa-solid fa-hammer',
-    'fa-brands fa-google-play',
-    'fa-solid fa-hospital',
-    'fa-solid fa-coins',
-    'fa-solid fa-otter',
-    'fa-solid fa-umbrella-beach',
-    'fa-solid fa-volleyball',
-    'fa-solid fa-tooth',
-    'fa-solid fa-taxi',
-    'fa-solid fa-piggy-bank',
-    'fa-solid fa-mobile-screen-button',
-    'fa-solid fa-ice-cream',
-    'fa-solid fa-couch',
-    'fa-solid fa-cookie',
-    'fa-solid fa-computer'
-  ];
-  SearchIcon:string = this.IconList[0];
-
-  constructor(public databaseApi:DatabaseApiService) {}
+  constructor(public databaseApi:DatabaseApiService, private iconListApi:IconListApiService) {}
 
   private _dateNow:Date = new Date();
-  // DateNow!:Date;
   get DateNow():Date
   {
     return this._dateNow;
@@ -92,24 +63,29 @@ export class AppComponent implements OnInit, AfterViewInit
     this._dateNow = value;
     let dateNew = new Date(value);
 
-    this.DateFromMax = `${dateNew.getFullYear()}-${dateNew.getMonth()+1}-${dateNew.getDate()}`;
+    //Set to first and last date of month
+    this.DateFromMax = `${dateNew.getFullYear()}-${dateNew.getMonth()+1}-1`;
     dateNew.setMonth(dateNew.getMonth() + 1, 0);
     this.DateToMin = `${dateNew.getFullYear()}-${dateNew.getMonth()+1}-${dateNew.getDate()}`;
 
-    this.databaseApi.GetExpenses(this.DateFromMax, 
-      this.DateToMin);
+    let q:SearchRequest =
+    {
+      dateFrom:this.DateFromMax,
+      dateTo:this.DateToMin
+    }
+
+    this.databaseApi.SearchExpense(q);
   }
 
-  // @ViewChild('dateFrom') dateFrom!:ElementRef<HTMLInputElement>;
   DateFromMax!:string;
-  // @ViewChild('dateTo') dateTo!:ElementRef<HTMLInputElement>;
   DateToMin!:string;
 
   DateForm = new FormControl(new Date());
 
   SelectInexList:number[] = [];
-  @ViewChild(AddExpensePageComponent) addExpensePage!:AddExpensePageComponent;
   
+  @ViewChild('SearchQuery') SearchQuery!:ElementRef<HTMLInputElement>;
+  SearchKeyword = new FormControl<string|null>(null);
   
   ngAfterViewInit(): void 
   {
@@ -119,13 +95,11 @@ export class AppComponent implements OnInit, AfterViewInit
   ngOnInit(): void 
   {
     //Set date to first and last day of this month
-    this.DateNow = new Date();
-    this.DateNow.setMonth(this.DateNow.getMonth(), 1);
+    let dateNow = new Date();
+    dateNow.setMonth(this.DateNow.getMonth(), 1);
+    this.DateNow = dateNow;
 
-    setTimeout(()=>
-    {
-      this.SetDateMinAndMax();
-    }, 500);
+    this.SearchKeyword.setValue('');
   }
 
   ButtonSrcChange(event:MouseEvent, src:string)
@@ -133,19 +107,6 @@ export class AppComponent implements OnInit, AfterViewInit
     $(event.currentTarget as EventTarget).attr('src', src);
   }
 
-  SetDateMinAndMax()
-  {
-    let today = new Date(`${this.DateNow.getFullYear()}-${this.DateNow.getMonth()+1}-${this.DateNow.getDate()}`);
-    
-    today.setMonth(today.getMonth(), 1);
-    this.DateFromMax = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
-
-    today.setMonth(today.getMonth() + 1, 0);
-    this.DateToMin = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
-
-    this.databaseApi.GetExpenses(this.DateFromMax, 
-                                 this.DateToMin);
-  }
 
   ChangeMonthArrow(isPositive:Boolean)
   {
@@ -162,82 +123,65 @@ export class AppComponent implements OnInit, AfterViewInit
 
   SearchButtonClick()
   {
-    let searchQuery:JQuery<HTMLElement> = $('#SearchQuery>input');
-    let query:string = searchQuery.val() as string;
-
-    if(!this.IsShowSearchExpense)
-    {
-      this.IsShowSearchExpense = true;
-      this.SearchIcon = this.IconList[0];
-      searchQuery.val('');
-      return;
-    }
-
-    if(this.SearchIcon == this.IconList[0] && searchQuery.val() == '')
-    {
-      // searchQuery.val('請輸入文字或選擇圖案');
-      // searchQuery.css('color', 'red');
-      this.databaseApi.GetExpenses();
-      return;
-    }
-    // else if(searchQuery.css('color') == 'red')
+    
+    // let searchQuery:JQuery<HTMLElement> = $('#SearchQuery>input');
+    // let query:string = searchQuery.val() as string;
+    
+    // if(!this.IsShowSearchExpense)
     // {
-    //   searchQuery.val('');
-    //   searchQuery.css('color', 'black');
-    //   query = '';
+    //   this.IsShowSearchExpense = true;
+    //   this.SearchKeyword.setValue('');
+    //   return;
     // }
 
-    let regex = /(?<=fa-)(?!solid|brands)\S+/g; //Search icon name only
-    let match = this.SearchIcon.match(regex);
+    // if(this.SearchKeyword.value == '')
+    // {
+    //   this.databaseApi.GetExpenses();
+    //   return;
+    // }
 
-    if(match != null)
-    {
-      this.databaseApi.SearchExpense(match[0], undefined, undefined, (searchQuery.val() as string));
-      this.CloseSearchExpense();
-    }
-    else
-    {
-      throw new Error("Didn't find icon name");
-    }
+    let q:SearchRequest = { keyword:this.SearchKeyword.value};
+    this.databaseApi.SearchExpense(q);
+    // this.CloseSearchExpense();
   }
 
-  CloseSearchExpense()
-  {
-    this.IsShowSearchExpense = false;
-  }
+  // CloseSearchExpense()
+  // {
+  //   this.IsShowSearchExpense = false;
+  // }
 
-  SearchIconClick(event:MouseEvent)
-  {
-    this.IsSelectingIcon = true;
-  }
+  // SearchIconClick(event:MouseEvent)
+  // {
+  //   this.IsSelectingIcon = true;
+  // }
 
-  SearchQueryClick(event:MouseEvent)
-  {
-    let target = event.target as HTMLInputElement;
+  // SearchQueryClick(event:MouseEvent)
+  // {
+  //   let target = event.target as HTMLInputElement;
 
-    if(target.style.color == 'red')
-    {
-      target.style.color = 'black';
-      target.value = '';
-    }
-  }
+  //   if(target.style.color == 'red')
+  //   {
+  //     target.style.color = 'black';
+  //     target.value = '';
+  //   }
+  // }
 
-  IconSelect(event:MouseEvent)
-  {
-    let target:HTMLElement = event.currentTarget as HTMLElement;
-    let child:HTMLElement = target.firstChild as HTMLElement;
+  // IconSelect(event:MouseEvent)
+  // {
+  //   let target:HTMLElement = event.currentTarget as HTMLElement;
+  //   let child:HTMLElement = target.firstChild as HTMLElement;
 
-    this.SearchIcon = child.getAttribute('class') as string;
+  //   this.SearchIcon = child.getAttribute('class') as string;
     
-    let searchQueryInput = $('#SearchQuery>input');
-    if(searchQueryInput.css('color') == 'rgb(255, 0, 0)')
-    {
-      searchQueryInput.css('color', 'black');
-      searchQueryInput.val('');
-    }
+  //   let searchQueryInput = $('#SearchQuery>input');
+  //   if(searchQueryInput.css('color') == 'rgb(255, 0, 0)')
+  //   {
+  //     searchQueryInput.css('color', 'black');
+  //     searchQueryInput.val('');
+  //   }
 
-    this.IsSelectingIcon = false;
-  }
+  //   this.IsSelectingIcon = false;
+  // }
 
   AccountingButtonClick()
   {
@@ -250,8 +194,6 @@ export class AppComponent implements OnInit, AfterViewInit
     this.IsShowAccountingPage = false;
     this.IsShowAnalyzePage = true;
   }
-
-  
 
   Test(event: Moment, datepicker: any)
   {

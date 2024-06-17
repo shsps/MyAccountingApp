@@ -2,7 +2,7 @@
     <div class="SearchArea_ToolPage_ItemLayout" id="SearchArea_ToolPage_Icon">
         <span class="SearchArea_ToolPage_Item1">分類：</span>
         <div class="SearchArea_ToolPage_Item2" (click)="IsSelectingIcon = true">
-            <i [class]="iconListService.IconList[SelectIndex]"></i>
+            <i [class]="iconListApi.IconList[SelectIndex]"></i>
         </div>
         <app-icon-selector *ngIf="IsSelectingIcon" (SelectIndex)="OnSelectIcon($event)"></app-icon-selector>
     </div>
@@ -22,6 +22,7 @@
     </div>
 
     <div class="SearchArea_ToolPage_ItemLayout" id="SearchArea_ToolPage_Search">
-        <button mat-flat-button class="SearchArea_ToolPage_Item2" color="primary" >搜尋</button>
+        <button mat-flat-button class="SearchArea_ToolPage_Item2" color="primary"
+        (click)="OnSearchToolButtonClick()">搜尋</button>
     </div>
 </div>

@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 @Injectable({
     providedIn: 'root'
 })
-export class IconListService
+export class IconListApiService
 {
     IconList:string[] = 
     [

@@ -1,5 +1,5 @@
 <div id="IconSelector_Root">
-    <div *ngFor="let item of iconListService.IconList; index as i" (click)="IconSelect($event)">
+    <div *ngFor="let item of iconListApi.IconList; index as i" (click)="IconSelect($event)">
         <i [class]="item" [attr.custom_id]="i"></i>
     </div>
 </div>

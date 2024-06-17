@@ -1,8 +1,11 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, NgModuleDecorator } from '@angular/core';
 import { Expenses } from '../@models/Expenses.model';
 import { ResponseData } from '../@models/HttpResponse.model'
 import { DatabaseResponse } from '../@models/DatabaseResponse.model';
+import moment from 'moment';
+import { SearchRequest } from '../@models/HttpRequest.model';
+import { JsonPipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -60,13 +63,24 @@ export class DatabaseApiService
     })
   }
 
-  SearchExpense(icon?:string, dateFrom?:Date, dateTo?:Date, searchQuery?:string):void
+  SearchExpense(q:SearchRequest):void
   {
-    let url2 = this.url.slice() + '/search/';
-    url2 += icon == 'fa-solid fa-x' ? 'n': icon;
-    url2 += '/'
-    url2 += searchQuery == '' ? 'n': searchQuery;
+    if(q.dateFrom == null || q.dateFrom == undefined)
+    {
+      q.dateFrom = '1000-1-1';
+    }
+    if(q.dateTo == null || q.dateTo == undefined)
+    {
+      q.dateTo = '9999-12-31';
+    }
 
+    this.DateFrom = q.dateFrom;
+    this.DateTo = q.dateTo;
+
+    let url2 = this.url.slice() + 'search/';
+    url2 += JSON.stringify(q);
+
+    // console.log(url2);
     this.http.get<DatabaseResponse>(url2).subscribe(data=>
     {
       this.ExpensesList = data.result as Expenses[];

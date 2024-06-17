@@ -16,44 +16,19 @@
       <i class="fa-solid fa-chevron-right Clickable" (click)="ChangeMonthArrow(true)"></i>
     </div>
 
-    <div id="SearchArea" *ngIf="IsShowSearchExpense">
+    <div id="SearchArea">
       <div class="Clickable" id="SearchArea_Tool" (click)="IsShowToolPage = true;">
         <i class="fa-solid fa-sliders"></i>
       </div>
 
       <div id="SearchArea_ToolPage" *ngIf="IsShowToolPage">
-        <app-search-area-tool></app-search-area-tool>
+        <app-search-area-tool (OnSearchButtonClick)="IsShowToolPage = false;"></app-search-area-tool>
       </div>
-      <!-- <div id="Icon" (click)="SearchIconClick($event)">
-        <i [class]="SearchIcon"></i>
-      </div>
-
-      <div id="iconMenu" *ngIf="IsSelectingIcon">
-        <div *ngFor="let item of IconList" 
-        (click)="IconSelect($event)">
-            <i [class]="item"></i>
-        </div>
-      </div>
-
-      <mat-form-field id="DateRange">
-        <mat-label>請選擇日期</mat-label>
-        <mat-date-range-input
-          [rangePicker]="campaignOnePicker">
-          <input matStartDate placeholder="Start date" formControlName="start">
-          <input matEndDate placeholder="End date" formControlName="end">
-        </mat-date-range-input>
-        <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
-      </mat-form-field> -->
 
       <div id="SearchQuery">
-        <input type="text" placeholder="請輸入關鍵字" (click)="SearchQueryClick($event)">
+        <input #SearchQuery type="text" placeholder="請輸入關鍵字" [formControl]="SearchKeyword">
       </div>
-
-      
     </div>
-
-    <!-- <input id="DateFrom" #dateFrom type="date" [max]="DateFromMax" (change)="SetDateMinAndMax()">
-    <input id="DateTo" #dateTo type="date" [min]="DateToMin" (change)="SetDateMinAndMax()"> -->
     
     <img class="Clickable" id="SearchButton" src="../assets/Magnifier.png" (click)="SearchButtonClick()">
   </div>

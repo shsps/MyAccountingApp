@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
-import { IconListService } from '../@services/IconList.service';
+import { IconListApiService } from '../@services/IconList-api.service';
 
 @Component({
   selector: 'app-icon-selector',
@@ -15,7 +15,7 @@ export class IconSelectorComponent
 {
   @Output() SelectIndex = new EventEmitter<number>();
 
-  constructor(public iconListService:IconListService){}
+  constructor(public iconListApi:IconListApiService){}
 
   IconSelect(event:MouseEvent)
   {
