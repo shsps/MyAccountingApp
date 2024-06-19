@@ -43,7 +43,7 @@ import { IconListApiService } from './@services/IconList-api.service';
 
 export class AppComponent implements OnInit, AfterViewInit
 {
-
+  title = 'MyAccountingApp';
   IsShowAccountingPage:boolean = true;
   IsShowSearchExpense:boolean = false;
   IsSelectingIcon:boolean = false;
